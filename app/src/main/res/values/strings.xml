@@ -1,14 +1,9 @@
 <resources>
-     <string name="app_name">Youtube</string>
-     <string name="button">foo</string>
-     <string name="checkbox">bar</string>
-     <string name="radio1">baz</string>
-     <string name="radio2">foobar</string>
-     <string name="hello">hello</string>
+     <string name="app_name">app name</string>
+     <string name="notification">notification</string>
      <string name="search">search</string>
-     <string name="youtube_img">youtube_img</string>
-     <string name="notifications">notifications</string>
-     <string name="add_video">add video</string>
-     <string name="home">home</string>
      <string name="account">account</string>
+     <string name="add_video">add video</string>
+     <string name="home_button">home button</string>
+     <string name="picture">picture</string>
 </resources>
