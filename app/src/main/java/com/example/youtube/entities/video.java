@@ -12,14 +12,16 @@ public class video {
     private List<comment> comments;
     private String video;
     private int thumbnail;
+    private String video_length;
 
-    public video(String video_name, String creator, String date_of_release, String video, int thumbnail) {
+    public video(String video_name, String creator, String date_of_release, String video, int thumbnail, String video_length) {
         this.video_name = video_name;
         this.creator = creator;
         this.date_of_release = date_of_release;
         this.video = video;
         this.thumbnail = thumbnail;
         this.views = "0";
+        this.video_length = video_length;
         this.comments = new ArrayList<comment>();
     }
 
@@ -85,5 +87,13 @@ public class video {
 
     public void setComments(List<comment> comments) {
         this.comments = comments;
+    }
+
+    public String getVideo_length() {
+        return video_length;
+    }
+
+    public void setVideo_length(String video_length) {
+        this.video_length = video_length;
     }
 }

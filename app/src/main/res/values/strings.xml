@@ -6,4 +6,10 @@
      <string name="add_video">add video</string>
      <string name="home_button">home button</string>
      <string name="picture">picture</string>
+     <string name="views">Views</string>
+     <string name="video_title">Video Title</string>
+     <string name="creator_name">Creator Name</string>
+     <string name="dot">•</string>
+     <string name="publish_date">Publish Date</string>
+     <string name="thumbnail">thumbnail</string>
 </resources>

@@ -22,6 +22,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         private final TextView views;
         private final TextView publish_date;
         private final ImageView thumbnail;
+        private final TextView video_length;
 
         private VideoViewHolder(View itemView){
             super(itemView);
@@ -30,6 +31,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             views = itemView.findViewById(R.id.views);
             publish_date = itemView.findViewById(R.id.publish_date);
             thumbnail = itemView.findViewById(R.id.thumbnail);
+            video_length = itemView.findViewById(R.id.video_length);
         }
     }
 
@@ -41,7 +43,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     }
 
     public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View itemView = mInflater.inflate(R.layout.video_layout, parent, false);
+        View itemView = mInflater.inflate(R.layout.video_layout_vertical, parent, false);
         return new VideoViewHolder(itemView);
     }
     public void onBindViewHolder(VideoViewHolder holder, int position){
@@ -51,6 +53,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             holder.creator.setText(current.getCreator());
             holder.views.setText(current.getViews());
             holder.publish_date.setText(current.getDate_of_release());
+            holder.video_length.setText(current.getVideo_length());
             holder.thumbnail.setImageResource(current.getThumbnail());
         }
     }
