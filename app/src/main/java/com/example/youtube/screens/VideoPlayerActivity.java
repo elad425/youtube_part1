@@ -19,6 +19,7 @@ import android.widget.VideoView;
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
 import com.example.youtube.adapters.CommentsAdapter;
+import com.example.youtube.adapters.VideoListAdapter;
 import com.example.youtube.entities.comment;
 import com.example.youtube.entities.video;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,6 +47,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
+
         Intent intent = getIntent();
         if (intent != null) {
             video videoItem = (video) intent.getSerializableExtra("video_item");
@@ -54,7 +56,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 // Initialize the VideoView
                 final VideoView videoView = findViewById(R.id.tv_video_view);
                 videoView.setVideoURI(Uri.parse(videoPath));
-
                 // Add media controller
                 MediaController mediaController = new MediaController(this);
                 mediaController.setAnchorView(videoView);

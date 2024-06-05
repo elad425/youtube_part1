@@ -1,0 +1,53 @@
+{
+  "videos": [
+    {
+      "title": "video player test",
+      "creator": "elad cohen",
+      "uploadTime": "20 hours ago",
+      "videoUrl": "android.resource://com.example.youtube/raw/record",
+      "thumbnail": "test_thumbnail",
+      "duration": "10:10",
+      "views": "1M views",
+      "likes": "333k",
+      "comments": [
+        {
+          "text": "what an amazing video!!",
+          "author": "mark zuckerberg",
+          "time": "one month ago"
+        },
+        {
+          "text": "this comment is to check if the limits off a single comment are ok and to blah blah blah",
+          "author": "ilan brownfield",
+          "time": "1 minute ago"
+        },
+        {
+          "text": "what a bad quality video:(",
+          "author": "moshe rabino",
+          "time": "3 days ago"
+        }
+      ]
+    },
+    {
+      "title": "video player test to see if each video play different file",
+      "creator": "yossef israeli",
+      "uploadTime": "3 weeks ago",
+      "videoUrl": "android.resource://com.example.youtube/raw/video2",
+      "thumbnail": "thumbnail2",
+      "duration": "12:45",
+      "views": "245K views",
+      "likes": "2M",
+      "comments": []
+    },
+    {
+      "title": "video player test to see the flow of the videos when scrolling",
+      "creator": "Elon musk",
+      "uploadTime": "2 day ago",
+      "videoUrl": "android.resource://com.example.youtube/raw/video1",
+      "thumbnail": "thumbnail3",
+      "duration": "20:21",
+      "views": "6.5M views",
+      "likes": "1M",
+      "comments": []
+    }
+  ]
+}
