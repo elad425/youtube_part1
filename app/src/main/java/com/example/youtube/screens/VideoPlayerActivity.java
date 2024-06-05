@@ -1,10 +1,16 @@
 package com.example.youtube.screens;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.TextView;
@@ -12,15 +18,29 @@ import android.widget.VideoView;
 
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
+import com.example.youtube.adapters.CommentsAdapter;
+import com.example.youtube.entities.comment;
 import com.example.youtube.entities.video;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class VideoPlayerActivity extends AppCompatActivity {
 
     private boolean isLiked = false;
     private boolean isDisliked = false;
+    private boolean areCommentsVisible = false;
 
+    private RecyclerView rvComments;
+    private TextView tvComments;
+    private ImageButton ivToggleComments;
+    private FloatingActionButton fabAddComment;
+    private CommentsAdapter commentsAdapter;
+    private List<comment> commentList;
+
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +73,23 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 tvVideoViews.setText(videoItem.getViews());
                 tvCreator.setText(videoItem.getCreator());
                 tvPublishDate.setText(videoItem.getDate_of_release());
+
+                // Initialize comments section
+                tvComments = findViewById(R.id.tv_comments);
+                rvComments = findViewById(R.id.rv_comments);
+                ivToggleComments = findViewById(R.id.iv_toggle_comments);
+                fabAddComment = findViewById(R.id.fab_add_comment);
+
+                commentList = videoItem.getComments();
+                tvComments.setText(String.format("Comments (%d)", commentList.size()));
+                ivToggleComments.setOnClickListener(v -> toggleComments());
+                tvComments.setOnClickListener(v -> toggleComments());
+
+                rvComments.setLayoutManager(new LinearLayoutManager(this));
+                commentsAdapter = new CommentsAdapter(commentList);
+                rvComments.setAdapter(commentsAdapter);
+
+                fabAddComment.setOnClickListener(v -> showAddCommentDialog());
             }
         }
 
@@ -105,5 +142,41 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(shareIntent, "Share Video"));
             }
         });
+    }
+
+    private void toggleComments() {
+        if (areCommentsVisible) {
+            rvComments.setVisibility(View.GONE);
+            fabAddComment.setVisibility(View.GONE);
+            ivToggleComments.setImageResource(R.drawable.ic_arrow_down);
+        } else {
+            rvComments.setVisibility(View.VISIBLE);
+            fabAddComment.setVisibility(View.VISIBLE);
+            ivToggleComments.setImageResource(R.drawable.ic_arrow_up);
+        }
+        areCommentsVisible = !areCommentsVisible;
+    }
+
+    @SuppressLint({"DefaultLocale", "NotifyDataSetChanged"})
+    private void showAddCommentDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add a comment");
+
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        builder.setPositiveButton("Add", (dialog, which) -> {
+            String commentText = input.getText().toString().trim();
+            if (!commentText.isEmpty()) {
+                comment newComment = new comment(commentText, "CurrentUser","today"); // Replace "CurrentUser" with actual user name if available
+                commentList.add(newComment);
+                commentsAdapter.notifyDataSetChanged();
+                tvComments.setText(String.format("Comments (%d)", commentList.size()));
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
     }
 }

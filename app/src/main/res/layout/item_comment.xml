@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_comment_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_light"
+            tools:text="Username" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/dot"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_light"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tv_comment_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/views"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_light"
+            android:textColor="@android:color/darker_gray"
+            tools:text="1M views" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_comment_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_light"
+        tools:text="This is a sample comment." />
+
+</LinearLayout>

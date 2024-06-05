@@ -21,4 +21,7 @@
     <string name="share">Share</string>
     <string name="like">Like</string>
     <string name="dislike">Dislike</string>
+    <string name="comments">comments</string>
+    <string name="toggle_comments">toggle_comments</string>
+    <string name="add_comment">add comment</string>
 </resources>
