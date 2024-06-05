@@ -1,26 +1,27 @@
 package com.example.youtube.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class video {
+public class video implements Serializable {
     private String video_name;
     private String creator;
     private String date_of_release;
     private String views;
     private int likes;
     private List<comment> comments;
-    private String video;
+    private String video_path;
     private int thumbnail;
     private String video_length;
 
-    public video(String video_name, String creator, String date_of_release, String video, int thumbnail, String video_length) {
+    public video(String video_name, String creator, String date_of_release, String video_path, int thumbnail, String video_length, String views) {
         this.video_name = video_name;
         this.creator = creator;
         this.date_of_release = date_of_release;
-        this.video = video;
+        this.video_path = video_path;
         this.thumbnail = thumbnail;
-        this.views = "0";
+        this.views = views;
         this.video_length = video_length;
         this.comments = new ArrayList<comment>();
     }
@@ -65,12 +66,12 @@ public class video {
         this.likes = likes;
     }
 
-    public String getVideo() {
-        return video;
+    public String getVideoPath() {
+        return video_path;
     }
 
-    public void setVideo(String video) {
-        this.video = video;
+    public void setVideoPath(String video_path) {
+        this.video_path = video_path;
     }
 
     public int getThumbnail() {

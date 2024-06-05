@@ -1,9 +1,13 @@
 package com.example.youtube;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.example.youtube.adapters.VideoListAdapter;
@@ -25,11 +29,8 @@ public class MainActivity extends AppCompatActivity {
         lstVideos.setLayoutManager(new LinearLayoutManager(this));
 
         List<video> videos = new ArrayList<>();
-        videos.add(new video("android","elad","13/01/1999", "video", R.drawable.test_thumbnail,"10:10"));
-        videos.add(new video("android1","elad1","14/01/1999", "video1", R.drawable.test_thumbnail,"10:10"));
-        videos.add(new video("android2","elad2","15/01/1999", "video2", R.drawable.test_thumbnail,"10:10"));
-        videos.add(new video("android3","elad3","16/01/1999", "video3", R.drawable.test_thumbnail,"10:10"));
-
+        videos.add(new video("video player test","elad cohen","20 hours ago", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4", R.drawable.test_thumbnail,"10:10", "1M views"));
+        videos.add(new video("video player test to see if each video play different file","yossef israeli","3 weeks ago", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4", R.drawable.thumbnail2,"12:45", "245K views"));
 
         adapter.setVideos(videos);
     }

@@ -1,16 +1,19 @@
 package com.example.youtube.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtube.R;
 import com.example.youtube.entities.video;
+import com.example.youtube.screens.VideoPlayerActivity;
 
 import java.util.List;
 
@@ -42,11 +45,12 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         mInflater = LayoutInflater.from(context);
     }
 
-    public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    @NonNull
+    public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType){
         View itemView = mInflater.inflate(R.layout.video_layout_vertical, parent, false);
         return new VideoViewHolder(itemView);
     }
-    public void onBindViewHolder(VideoViewHolder holder, int position){
+    public void onBindViewHolder(@NonNull VideoViewHolder holder, int position){
         if (videos != null){
             final video current = videos.get(position);
             holder.video_name.setText(current.getVideoName());
@@ -56,6 +60,16 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             holder.video_length.setText(current.getVideo_length());
             holder.thumbnail.setImageResource(current.getThumbnail());
         }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                video clickedVideoItem = videos.get(holder.getAdapterPosition());
+                Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
+                i.putExtra("video_item", clickedVideoItem);
+                mInflater.getContext().startActivity(i);
+            }
+        });
     }
      public void setVideos(List<video> v){
         videos = v;

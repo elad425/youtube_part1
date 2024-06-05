@@ -21,6 +21,7 @@
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/test_thumbnail"
+                android:background="@android:color/transparent"
                 android:contentDescription="@string/thumbnail" />
 
             <TextView
@@ -41,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/poppins_light"
             android:paddingHorizontal="8dp"
             android:text="@string/video_title"
             android:textColor="@android:color/black"
