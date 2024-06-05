@@ -9,13 +9,13 @@ public class video implements Serializable {
     private String creator;
     private String date_of_release;
     private String views;
-    private int likes;
+    private String likes;
     private List<comment> comments;
     private String video_path;
     private int thumbnail;
     private String video_length;
 
-    public video(String video_name, String creator, String date_of_release, String video_path, int thumbnail, String video_length, String views) {
+    public video(String video_name, String creator, String date_of_release, String video_path, int thumbnail, String video_length, String views, String likes) {
         this.video_name = video_name;
         this.creator = creator;
         this.date_of_release = date_of_release;
@@ -24,6 +24,7 @@ public class video implements Serializable {
         this.views = views;
         this.video_length = video_length;
         this.comments = new ArrayList<comment>();
+        this.likes = likes;
     }
 
     public String getVideoName() {
@@ -58,11 +59,11 @@ public class video implements Serializable {
         this.views = views;
     }
 
-    public int getLikes() {
+    public String getLikes() {
         return likes;
     }
 
-    public void setLikes(int likes) {
+    public void setLikes(String likes) {
         this.likes = likes;
     }
 
