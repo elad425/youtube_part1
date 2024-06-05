@@ -19,7 +19,6 @@ import android.widget.VideoView;
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
 import com.example.youtube.adapters.CommentsAdapter;
-import com.example.youtube.adapters.VideoListAdapter;
 import com.example.youtube.entities.comment;
 import com.example.youtube.entities.video;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,7 +32,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private boolean isLiked = false;
     private boolean isDisliked = false;
     private boolean areCommentsVisible = false;
-
     private RecyclerView rvComments;
     private TextView tvComments;
     private ImageButton ivToggleComments;
@@ -47,12 +45,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
-
         Intent intent = getIntent();
         if (intent != null) {
             video videoItem = (video) intent.getSerializableExtra("video_item");
             if (videoItem != null) {
-                String videoPath = videoItem.getVideoPath();
+                String videoPath = videoItem.getVideo_path();
                 // Initialize the VideoView
                 final VideoView videoView = findViewById(R.id.tv_video_view);
                 videoView.setVideoURI(Uri.parse(videoPath));
@@ -70,7 +67,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 TextView tvCreator = findViewById(R.id.tv_creator);
                 TextView tvPublishDate = findViewById(R.id.tv_publish_date);
 
-                tvVideoName.setText(videoItem.getVideoName());
+                tvVideoName.setText(videoItem.getVideo_name());
                 tvVideoViews.setText(videoItem.getViews());
                 tvCreator.setText(videoItem.getCreator());
                 tvPublishDate.setText(videoItem.getDate_of_release());
@@ -139,7 +136,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Check out this video");
                 assert videoItem != null;
-                shareIntent.putExtra(Intent.EXTRA_TEXT, videoItem.getVideoPath());
+                shareIntent.putExtra(Intent.EXTRA_TEXT, videoItem.getVideo_path());
                 startActivity(Intent.createChooser(shareIntent, "Share Video"));
             }
         });
