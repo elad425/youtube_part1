@@ -44,7 +44,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     static class CommentViewHolder extends RecyclerView.ViewHolder {
         TextView tvCommentUser;
         TextView tvCommentText;
-
         TextView tvCommentDate;
 
         public CommentViewHolder(@NonNull View itemView) {

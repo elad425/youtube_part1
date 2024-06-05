@@ -21,6 +21,7 @@ import com.example.youtube.R;
 import com.example.youtube.adapters.CommentsAdapter;
 import com.example.youtube.entities.comment;
 import com.example.youtube.entities.video;
+import com.example.youtube.utils.ShowListOfVideos;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.Nullable;
@@ -44,6 +45,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
+
+        RecyclerView lstVideos = findViewById(R.id.lstVideos);
+        ShowListOfVideos.displayVideoList(this,lstVideos);
 
         Intent intent = getIntent();
         if (intent != null) {
