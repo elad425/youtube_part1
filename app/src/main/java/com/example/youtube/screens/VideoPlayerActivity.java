@@ -95,14 +95,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
         }
 
+        ImageButton btnShare = findViewById(R.id.tv_btn_share);
+        ImageButton btnLike = findViewById(R.id.tv_btn_like);
+        ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
         ImageButton btnBack = findViewById(R.id.tv_video_back);
+
         btnBack.setOnClickListener(v -> {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
-
-        ImageButton btnLike = findViewById(R.id.tv_btn_like);
-        ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
 
         btnLike.setOnClickListener(v -> {
             if (!isLiked) {
@@ -132,7 +133,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btnShare = findViewById(R.id.tv_btn_share);
         btnShare.setOnClickListener(v -> {
             if (intent != null && intent.getSerializableExtra("video_item") != null) {
                 video videoItem = (video) intent.getSerializableExtra("video_item");
@@ -176,9 +176,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 tvComments.setText(String.format("Comments (%d)", commentList.size()));
             }
         });
-
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
         builder.show();
     }
 }

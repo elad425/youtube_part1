@@ -1,5 +1,6 @@
 package com.example.youtube.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setVideos(List<video> v) {
         videos = v;
         notifyDataSetChanged();
