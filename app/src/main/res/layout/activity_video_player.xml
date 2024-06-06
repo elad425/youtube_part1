@@ -25,7 +25,7 @@
                 <VideoView
                     android:id="@+id/tv_video_view"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="wrap_content"
                     android:contentDescription="@string/video_player" />
 
                 <ImageButton
@@ -204,8 +204,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/system_white"
                     android:visibility="gone" />
-
-
 
             </FrameLayout>
 

@@ -7,18 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.youtube.R;
 import com.example.youtube.entities.video;
 import com.example.youtube.screens.VideoPlayerActivity;
-
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoViewHolder> {
 
+    private final LayoutInflater mInflater;
+    private List<video> videos;
     static class VideoViewHolder extends RecyclerView.ViewHolder {
         private final TextView video_name;
         private final TextView creator;
@@ -38,8 +37,21 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         }
     }
 
-    private final LayoutInflater mInflater;
-    private List<video> videos;
+    public void setVideos(List<video> v) {
+        videos = v;
+        notifyDataSetChanged();
+    }
+
+    public List<video> getVideos() {
+        return videos;
+    }
+
+    @Override
+    public int getItemCount() {
+        if (videos != null)
+            return videos.size();
+        else return 0;
+    }
 
     public VideoListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -81,19 +93,4 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         });
     }
 
-    public void setVideos(List<video> v) {
-        videos = v;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        if (videos != null)
-            return videos.size();
-        else return 0;
-    }
-
-    public List<video> getVideos() {
-        return videos;
-    }
 }
