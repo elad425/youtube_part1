@@ -1,5 +1,6 @@
 package com.example.youtube.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
         this.mInflater = LayoutInflater.from(context);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setFilteredList(List<video> filteredList){
         this.videoList = filteredList;
         notifyDataSetChanged();

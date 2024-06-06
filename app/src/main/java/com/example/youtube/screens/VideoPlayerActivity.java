@@ -170,7 +170,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String commentText = input.getText().toString().trim();
             if (!commentText.isEmpty()) {
-                comment newComment = new comment(commentText, "CurrentUser","today"); // Replace "CurrentUser" with actual user name if available
+                comment newComment = new comment(commentText, "CurrentUser","now");
                 commentList.add(newComment);
                 commentsAdapter.notifyDataSetChanged();
                 tvComments.setText(String.format("Comments (%d)", commentList.size()));

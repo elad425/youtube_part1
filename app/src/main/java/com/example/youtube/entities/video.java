@@ -12,7 +12,7 @@ public class video implements Serializable {
     private String likes;
     private List<comment> comments;
     private String video_path;
-    private String thumbnail; // Change this to String
+    private String thumbnail;
     private String video_length;
 
     public video(String video_name, String creator, String date_of_release, String video_path, String thumbnail, String video_length, String views, String likes) {
@@ -47,9 +47,7 @@ public class video implements Serializable {
         return date_of_release;
     }
 
-    public void setDate_of_release(String date_of_release) {
-        this.date_of_release = date_of_release;
-    }
+    public void setDate_of_release(String date_of_release) { this.date_of_release = date_of_release;}
 
     public String getViews() {
         return views;

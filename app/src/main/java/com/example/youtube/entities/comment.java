@@ -5,9 +5,7 @@ import java.io.Serializable;
 public class comment implements Serializable {
     private String comment;
     private String user;
-
     private String date;
-
     public comment(String comment, String user, String date) {
         this.comment = comment;
         this.user = user;
