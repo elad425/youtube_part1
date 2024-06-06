@@ -74,7 +74,7 @@
                     android:layout_alignParentBottom="true"
                     android:background="@android:color/transparent"
                     app:menu="@menu/bottom_nav_menu"
-                    app:itemIconTint="@color/black"
+                    app:itemIconTint="@color/text_color"
                     app:itemTextAppearanceActiveBoldEnabled="false" />
 
             </RelativeLayout>
