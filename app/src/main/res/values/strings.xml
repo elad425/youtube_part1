@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">Youtube</string>
+    <string name="app_name">app name</string>
+    <string name="notification">notification</string>
+    <string name="search">search</string>
+    <string name="account">account</string>
+    <string name="add_video">add video</string>
+    <string name="home_button">home button</string>
+    <string name="picture">picture</string>
+    <string name="views">Views</string>
+    <string name="video_title">Video Title</string>
+    <string name="creator_name">Creator Name</string>
+    <string name="dot">•</string>
+    <string name="publish_date">Publish Date</string>
+    <string name="thumbnail">thumbnail</string>
+    <string name="home">Home</string>
+    <string name="shorts">Shorts</string>
+    <string name="subscriptions">Subs</string>
+    <string name="profile">Profile</string>
+    <string name="back">back</string>
+    <string name="video_player">video player</string>
+    <string name="share">Share</string>
+    <string name="like">Like</string>
+    <string name="dislike">Dislike</string>
+    <string name="comments">comments</string>
+    <string name="toggle_comments">toggle_comments</string>
+    <string name="add_comment">add comment</string>
 </resources>
