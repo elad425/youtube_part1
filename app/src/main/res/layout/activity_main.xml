@@ -24,7 +24,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.5"
-                android:layout_marginStart="5dp"
                 app:srcCompat="@drawable/youtube_text"
                 android:contentDescription="@string/app_name" />
             <Space
