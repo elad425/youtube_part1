@@ -24,4 +24,5 @@
     <string name="comments">comments</string>
     <string name="toggle_comments">toggle_comments</string>
     <string name="add_comment">add comment</string>
+    <string name="enter">enter</string>
 </resources>

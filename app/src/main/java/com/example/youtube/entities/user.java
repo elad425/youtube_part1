@@ -5,14 +5,12 @@ public class user {
     private String email;
     private  String password;
     private String profile_pic;
-
     public user(String name, String email, String password, String profile_pic) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.profile_pic = profile_pic;
     }
-
     public String getName() {
         return name;
     }

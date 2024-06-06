@@ -95,14 +95,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
         }
 
+        ImageButton btnShare = findViewById(R.id.tv_btn_share);
+        ImageButton btnLike = findViewById(R.id.tv_btn_like);
+        ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
         ImageButton btnBack = findViewById(R.id.tv_video_back);
+
         btnBack.setOnClickListener(v -> {
             Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
-
-        ImageButton btnLike = findViewById(R.id.tv_btn_like);
-        ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
 
         btnLike.setOnClickListener(v -> {
             if (!isLiked) {
@@ -132,7 +133,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton btnShare = findViewById(R.id.tv_btn_share);
         btnShare.setOnClickListener(v -> {
             if (intent != null && intent.getSerializableExtra("video_item") != null) {
                 video videoItem = (video) intent.getSerializableExtra("video_item");
@@ -170,15 +170,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String commentText = input.getText().toString().trim();
             if (!commentText.isEmpty()) {
-                comment newComment = new comment(commentText, "CurrentUser","today"); // Replace "CurrentUser" with actual user name if available
+                comment newComment = new comment(commentText, "CurrentUser","now");
                 commentList.add(newComment);
                 commentsAdapter.notifyDataSetChanged();
                 tvComments.setText(String.format("Comments (%d)", commentList.size()));
             }
         });
-
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
         builder.show();
     }
 }

@@ -1,10 +1,8 @@
 package com.example.youtube.utils;
 
 import android.content.Context;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.youtube.adapters.VideoListAdapter;
 import com.example.youtube.entities.video;
 

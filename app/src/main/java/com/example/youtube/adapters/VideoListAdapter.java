@@ -1,5 +1,6 @@
 package com.example.youtube.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setVideos(List<video> v) {
         videos = v;
         notifyDataSetChanged();
@@ -75,11 +77,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             // Load thumbnail using resource identifier
             String thumbnailName = current.getThumbnail();
             int thumbnailId = mInflater.getContext().getResources().getIdentifier(thumbnailName, "drawable", mInflater.getContext().getPackageName());
-            if (thumbnailId != 0) {
-                holder.thumbnail.setImageResource(thumbnailId);
-            } else {
-                holder.thumbnail.setImageResource(R.drawable.youtube_icon); // Set a default image if not found
-            }
+            holder.thumbnail.setImageResource(thumbnailId);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
