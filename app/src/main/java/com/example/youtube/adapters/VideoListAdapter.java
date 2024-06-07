@@ -77,15 +77,12 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             holder.thumbnail.setImageResource(thumbnailId);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                video clickedVideoItem = videos.get(holder.getAdapterPosition());
-                Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
-                i.putExtra("video_item", clickedVideoItem);
-                i.putParcelableArrayListExtra("video_list", videos);
-                mInflater.getContext().startActivity(i);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            video clickedVideoItem = videos.get(holder.getAdapterPosition());
+            Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
+            i.putExtra("video_item", clickedVideoItem);
+            i.putParcelableArrayListExtra("video_list", videos);
+            mInflater.getContext().startActivity(i);
         });
     }
 

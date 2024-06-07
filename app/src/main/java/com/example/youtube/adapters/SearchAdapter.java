@@ -48,15 +48,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
         video video = filteredVideoList.get(position);
         holder.searchResultTextView.setText(video.getVideo_name());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                video clickedVideoItem = filteredVideoList.get(holder.getAdapterPosition());
-                Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
-                i.putExtra("video_item", clickedVideoItem);
-                i.putExtra("video_list", videoList);
-                mInflater.getContext().startActivity(i);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            video clickedVideoItem = filteredVideoList.get(holder.getAdapterPosition());
+            Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
+            i.putExtra("video_item", clickedVideoItem);
+            i.putExtra("video_list", videoList);
+            mInflater.getContext().startActivity(i);
         });
     }
 
