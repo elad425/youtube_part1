@@ -39,7 +39,7 @@ public class SearchVideo extends AppCompatActivity {
 
         SearchView searchView = findViewById(R.id.search_view);
         filteredList = new ArrayList<>();
-        searchAdapter = new SearchAdapter(filteredList, this);
+        searchAdapter = new SearchAdapter(videos,filteredList, this);
 
         RecyclerView rvSearch = findViewById(R.id.rv_search);
         rvSearch.setLayoutManager(new LinearLayoutManager(this));

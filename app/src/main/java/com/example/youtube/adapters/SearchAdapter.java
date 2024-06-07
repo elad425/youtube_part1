@@ -19,18 +19,20 @@ import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewHolder> {
 
-    private ArrayList<video> videoList;
+    private ArrayList<video> filteredVideoList;
+    private final ArrayList<video> videoList;
 
     private final LayoutInflater mInflater;
 
-    public SearchAdapter(ArrayList<video> videoList, Context context) {
+    public SearchAdapter(ArrayList<video> videoList, ArrayList<video> filteredVideoList, Context context) {
         this.videoList = videoList;
+        this.filteredVideoList = filteredVideoList;
         this.mInflater = LayoutInflater.from(context);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void setFilteredList(ArrayList<video> filteredList){
-        this.videoList = filteredList;
+        this.filteredVideoList = filteredList;
         notifyDataSetChanged();
     }
 
@@ -43,13 +45,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
 
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        video video = videoList.get(position);
+        video video = filteredVideoList.get(position);
         holder.searchResultTextView.setText(video.getVideo_name());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                video clickedVideoItem = videoList.get(holder.getAdapterPosition());
+                video clickedVideoItem = filteredVideoList.get(holder.getAdapterPosition());
                 Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
                 i.putExtra("video_item", clickedVideoItem);
                 i.putExtra("video_list", videoList);
@@ -60,7 +62,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
 
     @Override
     public int getItemCount() {
-        return videoList.size();
+        return filteredVideoList.size();
     }
 
     static class VideoViewHolder extends RecyclerView.ViewHolder {

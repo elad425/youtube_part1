@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">app name</string>
+    <string name="app_name">YouTube</string>
     <string name="notification">notification</string>
     <string name="search">search</string>
     <string name="account">account</string>
