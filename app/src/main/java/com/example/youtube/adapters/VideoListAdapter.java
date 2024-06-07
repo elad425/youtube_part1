@@ -29,7 +29,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         private final TextView publish_date;
         private final ImageView thumbnail;
         private final TextView video_length;
-        private final ImageButton video_optins;
+        private final ImageButton video_options;
 
         private VideoViewHolder(View itemView) {
             super(itemView);
@@ -39,7 +39,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             publish_date = itemView.findViewById(R.id.publish_date);
             thumbnail = itemView.findViewById(R.id.thumbnail);
             video_length = itemView.findViewById(R.id.video_length);
-            video_optins = itemView.findViewById(R.id.tv_video_option);
+            video_options = itemView.findViewById(R.id.tv_video_option);
         }
     }
 
@@ -89,7 +89,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             mInflater.getContext().startActivity(i);
         });
 
-        holder.video_optins.setOnClickListener(v -> {
+        holder.video_options.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(v.getContext(), v);
             popup.getMenuInflater().inflate(R.menu.video_options_menu, popup.getMenu());
 
