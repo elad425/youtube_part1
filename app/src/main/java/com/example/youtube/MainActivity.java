@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,5 +39,9 @@ public class MainActivity extends AppCompatActivity {
             i.putParcelableArrayListExtra("video_list", videos);
             startActivity(i);
         });
+
+        ImageButton btnCast = findViewById(R.id.cast_button);
+        btnCast.setOnClickListener(v -> Toast.makeText(MainActivity.this,
+                "The app doesn't support Chromecast yet", Toast.LENGTH_SHORT).show());
     }
 }

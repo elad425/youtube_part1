@@ -31,13 +31,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2" />
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/cast_button"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/ic_not"
-                android:contentDescription="@string/notification" />
+                app:srcCompat="@drawable/ic_cast"
+                android:contentDescription="@string/cast" />
             <ImageButton
                 android:id="@+id/search_button"
                 android:layout_width="match_parent"
