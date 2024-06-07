@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Youtube"
         tools:targetApi="31">
         <activity
+            android:name=".screens.EditVideoActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.SearchVideo"
             android:exported="false" />
         <activity

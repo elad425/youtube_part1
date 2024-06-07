@@ -60,7 +60,8 @@
             <ImageButton
                 android:id="@+id/tv_video_option"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/video_option"

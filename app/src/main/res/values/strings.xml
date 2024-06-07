@@ -32,4 +32,8 @@
     <string name="video_option">video option</string>
     <string name="edit_video">edit video</string>
     <string name="delete_video">delete video</string>
+    <string name="video_name">Video Name</string>
+    <string name="creator">Creator</string>
+    <string name="video_path">Video Path</string>
+    <string name="video_length">Video Length</string>
 </resources>
