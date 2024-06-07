@@ -62,7 +62,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/tv_edit_comment"
+        android:id="@+id/tv_comment_options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"

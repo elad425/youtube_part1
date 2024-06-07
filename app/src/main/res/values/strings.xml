@@ -29,4 +29,7 @@
     <string name="delete_comment">Delete Comment</string>
     <string name="edit_comment_text">Edit Comment</string>
     <string name="cast">cast</string>
+    <string name="video_option">video option</string>
+    <string name="edit_video">edit video</string>
+    <string name="delete_video">delete video</string>
 </resources>

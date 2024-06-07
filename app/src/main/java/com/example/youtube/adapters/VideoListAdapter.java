@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         private final TextView publish_date;
         private final ImageView thumbnail;
         private final TextView video_length;
+        private final ImageButton video_optins;
 
         private VideoViewHolder(View itemView) {
             super(itemView);
@@ -36,6 +39,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             publish_date = itemView.findViewById(R.id.publish_date);
             thumbnail = itemView.findViewById(R.id.thumbnail);
             video_length = itemView.findViewById(R.id.video_length);
+            video_optins = itemView.findViewById(R.id.tv_video_option);
         }
     }
 
@@ -71,7 +75,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             holder.publish_date.setText(current.getDate_of_release());
             holder.video_length.setText(current.getVideo_length());
 
-            // Load thumbnail using resource identifier
+            // Load thumbnail
             String thumbnailName = current.getThumbnail();
             int thumbnailId = mInflater.getContext().getResources().getIdentifier(thumbnailName, "drawable", mInflater.getContext().getPackageName());
             holder.thumbnail.setImageResource(thumbnailId);
@@ -83,6 +87,24 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             i.putExtra("video_item", clickedVideoItem);
             i.putParcelableArrayListExtra("video_list", videos);
             mInflater.getContext().startActivity(i);
+        });
+
+        holder.video_optins.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(v.getContext(), v);
+            popup.getMenuInflater().inflate(R.menu.video_options_menu, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.action_edit_video) {
+
+                    return true;
+                }
+                else if (item.getItemId() == R.id.action_delete_video) {
+
+                    return true;
+                }
+                return false;
+            });
+            popup.show();
         });
     }
 

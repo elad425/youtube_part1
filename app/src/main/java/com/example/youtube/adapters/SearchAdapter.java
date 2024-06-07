@@ -21,7 +21,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
 
     private ArrayList<video> filteredVideoList;
     private final ArrayList<video> videoList;
-
     private final LayoutInflater mInflater;
 
     public SearchAdapter(ArrayList<video> videoList, ArrayList<video> filteredVideoList, Context context) {
@@ -64,7 +63,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
 
     static class VideoViewHolder extends RecyclerView.ViewHolder {
         TextView searchResultTextView;
-
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             searchResultTextView = itemView.findViewById(R.id.search_result);

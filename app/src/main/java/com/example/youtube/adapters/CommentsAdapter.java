@@ -75,7 +75,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             tvCommentUser = itemView.findViewById(R.id.tv_comment_user);
             tvCommentText = itemView.findViewById(R.id.tv_comment_text);
             tvCommentDate = itemView.findViewById(R.id.tv_comment_date);
-            tvEditComment = itemView.findViewById(R.id.tv_edit_comment);
+            tvEditComment = itemView.findViewById(R.id.tv_comment_options);
         }
     }
 }
