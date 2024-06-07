@@ -20,13 +20,22 @@ import java.util.List;
 
 public class SearchVideo extends AppCompatActivity {
 
-    private List<video> filteredList;
+    private ArrayList<video> filteredList;
     private SearchAdapter searchAdapter;
+    private ArrayList<video> videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_video);
+
+        Intent intent = getIntent();
+        ArrayList<video> temp = intent.getParcelableArrayListExtra("video_list");
+        if (temp != null){
+            videos = temp;
+        }else {
+            videos = JsonUtils.loadVideosFromJson(this);
+        }
 
         SearchView searchView = findViewById(R.id.search_view);
         filteredList = new ArrayList<>();
@@ -56,9 +65,8 @@ public class SearchVideo extends AppCompatActivity {
     }
 
     private void filterVideos(String query) {
-        List<video> videoList = JsonUtils.loadVideosFromJson(this);
         filteredList.clear();
-        for (video video : videoList){
+        for (video video : videos){
             if (video.getVideo_name().toLowerCase().startsWith(query.toLowerCase())
                     && !query.equals("")){
                 filteredList.add(video);

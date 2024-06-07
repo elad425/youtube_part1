@@ -6,15 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.youtube.adapters.VideoListAdapter;
 import com.example.youtube.entities.video;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowListOfVideos {
-    public static void displayVideoList(Context context, RecyclerView lstVideos) {
+    public static void displayVideoList(Context context, RecyclerView lstVideos, ArrayList<video> videos) {
         final VideoListAdapter adapter = new VideoListAdapter(context);
         lstVideos.setAdapter(adapter);
         lstVideos.setLayoutManager(new LinearLayoutManager(context));
-
-        List<video> videos = JsonUtils.loadVideosFromJson(context);
         adapter.setVideos(videos);
     }
 }

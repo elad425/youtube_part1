@@ -1,5 +1,7 @@
 package com.example.youtube.screens;
 
+import static com.example.youtube.utils.ArrayFunction.findVideoPlace;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoPlayerActivity extends AppCompatActivity {
@@ -39,6 +42,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private FloatingActionButton fabAddComment;
     private CommentsAdapter commentsAdapter;
     private List<comment> commentList;
+    private ArrayList<video> videos;
+    private int videoNumber;
 
     @SuppressLint("DefaultLocale")
     @Override
@@ -47,12 +52,14 @@ public class VideoPlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_video_player);
 
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
-        ShowListOfVideos.displayVideoList(this,lstVideos);
 
         Intent intent = getIntent();
         if (intent != null) {
-            video videoItem = (video) intent.getSerializableExtra("video_item");
-            if (videoItem != null) {
+            video videoItem = intent.getParcelableExtra("video_item");
+            videos = intent.getParcelableArrayListExtra("video_list");
+            if (videoItem != null && videos!=null) {
+                videoNumber = findVideoPlace(videos, videoItem);
+                ShowListOfVideos.displayVideoList(this,lstVideos,videos);
                 String videoPath = videoItem.getVideo_path();
                 // Initialize the VideoView
                 final VideoView videoView = findViewById(R.id.tv_video_view);
@@ -102,6 +109,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> {
             Intent i = new Intent(this, MainActivity.class);
+            i.putParcelableArrayListExtra("video_list", videos);
             startActivity(i);
         });
 
@@ -134,8 +142,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
         });
 
         btnShare.setOnClickListener(v -> {
-            if (intent != null && intent.getSerializableExtra("video_item") != null) {
-                video videoItem = (video) intent.getSerializableExtra("video_item");
+            if (intent != null && intent.getParcelableExtra("video_item") != null) {
+                video videoItem = intent.getParcelableExtra("video_item");
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Check out this video");
@@ -172,6 +180,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             if (!commentText.isEmpty()) {
                 comment newComment = new comment(commentText, "CurrentUser","now");
                 commentList.add(newComment);
+                videos.get(videoNumber).setComments(commentList);
                 commentsAdapter.notifyDataSetChanged();
                 tvComments.setText(String.format("Comments (%d)", commentList.size()));
             }

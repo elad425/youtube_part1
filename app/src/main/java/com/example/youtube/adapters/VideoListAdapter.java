@@ -13,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.youtube.R;
 import com.example.youtube.entities.video;
 import com.example.youtube.screens.VideoPlayerActivity;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoViewHolder> {
 
     private final LayoutInflater mInflater;
-    private List<video> videos;
+    private ArrayList<video> videos;
     static class VideoViewHolder extends RecyclerView.ViewHolder {
         private final TextView video_name;
         private final TextView creator;
@@ -39,7 +41,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setVideos(List<video> v) {
+    public void setVideos(ArrayList<video> v) {
         videos = v;
         notifyDataSetChanged();
     }
@@ -86,6 +88,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
                 video clickedVideoItem = videos.get(holder.getAdapterPosition());
                 Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
                 i.putExtra("video_item", clickedVideoItem);
+                i.putParcelableArrayListExtra("video_list", videos);
                 mInflater.getContext().startActivity(i);
             }
         });

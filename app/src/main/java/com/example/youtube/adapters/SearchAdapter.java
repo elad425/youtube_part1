@@ -15,21 +15,22 @@ import com.example.youtube.R;
 import com.example.youtube.entities.video;
 import com.example.youtube.screens.VideoPlayerActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewHolder> {
 
-    private List<video> videoList;
+    private ArrayList<video> videoList;
 
     private final LayoutInflater mInflater;
 
-    public SearchAdapter(List<video> videoList, Context context) {
+    public SearchAdapter(ArrayList<video> videoList, Context context) {
         this.videoList = videoList;
         this.mInflater = LayoutInflater.from(context);
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setFilteredList(List<video> filteredList){
+    public void setFilteredList(ArrayList<video> filteredList){
         this.videoList = filteredList;
         notifyDataSetChanged();
     }
@@ -52,6 +53,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
                 video clickedVideoItem = videoList.get(holder.getAdapterPosition());
                 Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
                 i.putExtra("video_item", clickedVideoItem);
+                i.putExtra("video_list", videoList);
                 mInflater.getContext().startActivity(i);
             }
         });
