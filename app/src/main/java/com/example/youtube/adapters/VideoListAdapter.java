@@ -95,11 +95,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
             popup.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == R.id.action_edit_video) {
-
+                    // implement
                     return true;
                 }
                 else if (item.getItemId() == R.id.action_delete_video) {
-
+                    // implement
                     return true;
                 }
                 return false;
