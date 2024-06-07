@@ -2,6 +2,7 @@ package com.example.youtube.screens;
 
 import static com.example.youtube.utils.ArrayFunction.findVideoPlace;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +30,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class VideoPlayerActivity extends AppCompatActivity {
 
@@ -41,7 +41,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private ImageButton ivToggleComments;
     private FloatingActionButton fabAddComment;
     private CommentsAdapter commentsAdapter;
-    private List<comment> commentList;
+    private ArrayList<comment> commentList;
     private ArrayList<video> videos;
     private int videoNumber;
 
@@ -54,52 +54,52 @@ public class VideoPlayerActivity extends AppCompatActivity {
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
 
         Intent intent = getIntent();
-        if (intent != null) {
-            video videoItem = intent.getParcelableExtra("video_item");
-            videos = intent.getParcelableArrayListExtra("video_list");
-            if (videoItem != null && videos!=null) {
-                videoNumber = findVideoPlace(videos, videoItem);
-                ShowListOfVideos.displayVideoList(this,lstVideos,videos);
-                String videoPath = videoItem.getVideo_path();
-                // Initialize the VideoView
-                final VideoView videoView = findViewById(R.id.tv_video_view);
-                videoView.setVideoURI(Uri.parse(videoPath));
-                // Add media controller
-                MediaController mediaController = new MediaController(this);
-                mediaController.setAnchorView(videoView);
-                videoView.setMediaController(mediaController);
+        video videoItem = intent.getParcelableExtra("video_item");
+        videos = intent.getParcelableArrayListExtra("video_list");
+        if (videoItem != null && videos != null) {
+            videoNumber = findVideoPlace(videos, videoItem);
+            ShowListOfVideos.displayVideoList(this, lstVideos, videos);
+            String videoPath = videoItem.getVideo_path();
 
-                // Start playing the video
-                videoView.start();
+            // Initialize the VideoView
+            final VideoView videoView = findViewById(R.id.tv_video_view);
+            videoView.setVideoURI(Uri.parse(videoPath));
 
-                // display info about the video
-                TextView tvVideoName = findViewById(R.id.tv_video_name);
-                TextView tvVideoViews = findViewById(R.id.tv_video_views);
-                TextView tvCreator = findViewById(R.id.tv_creator);
-                TextView tvPublishDate = findViewById(R.id.tv_publish_date);
+            // Add media controller
+            MediaController mediaController = new MediaController(this);
+            mediaController.setAnchorView(videoView);
+            videoView.setMediaController(mediaController);
 
-                tvVideoName.setText(videoItem.getVideo_name());
-                tvVideoViews.setText(videoItem.getViews());
-                tvCreator.setText(videoItem.getCreator());
-                tvPublishDate.setText(videoItem.getDate_of_release());
+            // Start playing the video
+            videoView.start();
 
-                // Initialize comments section
-                tvComments = findViewById(R.id.tv_comments);
-                rvComments = findViewById(R.id.rv_comments);
-                ivToggleComments = findViewById(R.id.iv_toggle_comments);
-                fabAddComment = findViewById(R.id.fab_add_comment);
+            // Display info about the video
+            TextView tvVideoName = findViewById(R.id.tv_video_name);
+            TextView tvVideoViews = findViewById(R.id.tv_video_views);
+            TextView tvCreator = findViewById(R.id.tv_creator);
+            TextView tvPublishDate = findViewById(R.id.tv_publish_date);
 
-                commentList = videoItem.getComments();
-                tvComments.setText(String.format("Comments (%d)", commentList.size()));
-                ivToggleComments.setOnClickListener(v -> toggleComments());
-                tvComments.setOnClickListener(v -> toggleComments());
+            tvVideoName.setText(videoItem.getVideo_name());
+            tvVideoViews.setText(videoItem.getViews());
+            tvCreator.setText(videoItem.getCreator());
+            tvPublishDate.setText(videoItem.getDate_of_release());
 
-                rvComments.setLayoutManager(new LinearLayoutManager(this));
-                commentsAdapter = new CommentsAdapter(commentList);
-                rvComments.setAdapter(commentsAdapter);
+            // Initialize comments section
+            tvComments = findViewById(R.id.tv_comments);
+            rvComments = findViewById(R.id.rv_comments);
+            ivToggleComments = findViewById(R.id.iv_toggle_comments);
+            fabAddComment = findViewById(R.id.fab_add_comment);
 
-                fabAddComment.setOnClickListener(v -> showAddCommentDialog());
-            }
+            commentList = videoItem.getComments();
+            tvComments.setText(String.format("Comments (%d)", commentList.size()));
+            ivToggleComments.setOnClickListener(v -> toggleComments());
+            tvComments.setOnClickListener(v -> toggleComments());
+
+            rvComments.setLayoutManager(new LinearLayoutManager(this));
+            commentsAdapter = new CommentsAdapter(commentList,this);
+            rvComments.setAdapter(commentsAdapter);
+
+            fabAddComment.setOnClickListener(v -> showAddCommentDialog());
         }
 
         ImageButton btnShare = findViewById(R.id.tv_btn_share);
@@ -107,10 +107,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
         ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
         ImageButton btnBack = findViewById(R.id.tv_video_back);
 
-        btnBack.setOnClickListener(v -> {
-            Intent i = new Intent(this, MainActivity.class);
-            i.putParcelableArrayListExtra("video_list", videos);
-            startActivity(i);
+        btnBack.setOnClickListener(v -> handleBackAction());
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleBackAction();
+            }
         });
 
         btnLike.setOnClickListener(v -> {
@@ -142,16 +145,20 @@ public class VideoPlayerActivity extends AppCompatActivity {
         });
 
         btnShare.setOnClickListener(v -> {
-            if (intent != null && intent.getParcelableExtra("video_item") != null) {
-                video videoItem = intent.getParcelableExtra("video_item");
+            if (videoItem != null) {
                 Intent shareIntent = new Intent(Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Check out this video");
-                assert videoItem != null;
                 shareIntent.putExtra(Intent.EXTRA_TEXT, videoItem.getVideo_path());
                 startActivity(Intent.createChooser(shareIntent, "Share Video"));
             }
         });
+    }
+
+    private void handleBackAction() {
+        Intent i = new Intent(this, MainActivity.class);
+        i.putParcelableArrayListExtra("video_list", videos);
+        startActivity(i);
     }
 
     private void toggleComments() {
@@ -178,11 +185,41 @@ public class VideoPlayerActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String commentText = input.getText().toString().trim();
             if (!commentText.isEmpty()) {
-                comment newComment = new comment(commentText, "CurrentUser","now");
+                comment newComment = new comment(commentText, "CurrentUser", "now");
                 commentList.add(newComment);
                 videos.get(videoNumber).setComments(commentList);
                 commentsAdapter.notifyDataSetChanged();
                 tvComments.setText(String.format("Comments (%d)", commentList.size()));
+            }
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
+
+    @SuppressLint({"NotifyDataSetChanged", "DefaultLocale"})
+    public void removeComment(int position) {
+        commentList.remove(position);
+        videos.get(videoNumber).setComments(commentList);
+        commentsAdapter.notifyDataSetChanged();
+        tvComments.setText(String.format("Comments (%d)", commentList.size()));
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void editComment(int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Edit comment");
+
+        final EditText input = new EditText(this);
+        input.setText(commentList.get(position).getComment());
+        builder.setView(input);
+
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            String editedCommentText = input.getText().toString().trim();
+            if (!editedCommentText.isEmpty()) {
+                commentList.get(position).setComment(editedCommentText);
+                commentList.get(position).setDate("now");
+                videos.get(videoNumber).setComments(commentList);
+                commentsAdapter.notifyDataSetChanged();
             }
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());

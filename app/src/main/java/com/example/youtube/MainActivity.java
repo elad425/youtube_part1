@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
         ShowListOfVideos.displayVideoList(this, lstVideos, videos);
 
-        ImageButton btnBack = findViewById(R.id.search_button);
-        btnBack.setOnClickListener(v -> {
+        ImageButton btnSearch = findViewById(R.id.search_button);
+        btnSearch.setOnClickListener(v -> {
             Intent i = new Intent(this, SearchVideo.class);
             i.putParcelableArrayListExtra("video_list", videos);
             startActivity(i);

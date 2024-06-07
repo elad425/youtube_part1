@@ -14,7 +14,7 @@ public class video implements Parcelable {
     private String date_of_release;
     private String views;
     private String likes;
-    private List<comment> comments;
+    private ArrayList<comment> comments;
     private String video_path;
     private String thumbnail;
     private String video_length;
@@ -93,11 +93,11 @@ public class video implements Parcelable {
         this.likes = likes;
     }
 
-    public List<comment> getComments() {
+    public ArrayList<comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<comment> comments) {
+    public void setComments(ArrayList<comment> comments) {
         this.comments = comments;
     }
 

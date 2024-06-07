@@ -25,4 +25,7 @@
     <string name="toggle_comments">toggle_comments</string>
     <string name="add_comment">add comment</string>
     <string name="enter">enter</string>
+    <string name="edit_comment">edit comment</string>
+    <string name="delete_comment">Delete Comment</string>
+    <string name="edit_comment_text">Edit Comment</string>
 </resources>

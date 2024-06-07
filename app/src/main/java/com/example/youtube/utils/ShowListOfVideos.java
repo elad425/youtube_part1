@@ -7,7 +7,6 @@ import com.example.youtube.adapters.VideoListAdapter;
 import com.example.youtube.entities.video;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ShowListOfVideos {
     public static void displayVideoList(Context context, RecyclerView lstVideos, ArrayList<video> videos) {

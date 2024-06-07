@@ -16,7 +16,6 @@ import com.example.youtube.entities.video;
 import com.example.youtube.screens.VideoPlayerActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewHolder> {
 

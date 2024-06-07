@@ -3,19 +3,27 @@ package com.example.youtube.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.youtube.R;
 import com.example.youtube.entities.comment;
-import java.util.List;
+import com.example.youtube.screens.VideoPlayerActivity;
+
+import java.util.ArrayList;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
 
-    private final List<comment> commentList;
+    private final ArrayList<comment> commentList;
+    private final VideoPlayerActivity videoPlayerActivity;
 
-    public CommentsAdapter(List<comment> commentList) {
+    public CommentsAdapter(ArrayList<comment> commentList, VideoPlayerActivity videoPlayerActivity) {
         this.commentList = commentList;
+        this.videoPlayerActivity = videoPlayerActivity;
     }
 
     @NonNull
@@ -31,6 +39,24 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         holder.tvCommentUser.setText(currentComment.getUser());
         holder.tvCommentText.setText(currentComment.getComment());
         holder.tvCommentDate.setText(currentComment.getDate());
+
+        holder.tvEditComment.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(v.getContext(), v);
+            popup.getMenuInflater().inflate(R.menu.comment_options_menu, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.action_edit_comment) {
+                    videoPlayerActivity.editComment(position);
+                    return true;
+                }
+                else if (item.getItemId() == R.id.action_delete_comment) {
+                    videoPlayerActivity.removeComment(position);
+                    return true;
+                    }
+                return false;
+            });
+            popup.show();
+        });
     }
 
     @Override
@@ -42,12 +68,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         TextView tvCommentUser;
         TextView tvCommentText;
         TextView tvCommentDate;
+        ImageButton tvEditComment;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
             tvCommentUser = itemView.findViewById(R.id.tv_comment_user);
             tvCommentText = itemView.findViewById(R.id.tv_comment_text);
             tvCommentDate = itemView.findViewById(R.id.tv_comment_date);
+            tvEditComment = itemView.findViewById(R.id.tv_edit_comment);
         }
     }
 }

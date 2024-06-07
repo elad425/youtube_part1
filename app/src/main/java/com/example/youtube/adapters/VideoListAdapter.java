@@ -15,7 +15,6 @@ import com.example.youtube.entities.video;
 import com.example.youtube.screens.VideoPlayerActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoViewHolder> {
 
@@ -44,10 +43,6 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     public void setVideos(ArrayList<video> v) {
         videos = v;
         notifyDataSetChanged();
-    }
-
-    public List<video> getVideos() {
-        return videos;
     }
 
     @Override
