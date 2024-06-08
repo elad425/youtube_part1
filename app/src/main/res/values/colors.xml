@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="text_color">#FF000000</color>
+    <color name="youtube_red">#FF0000</color>
     <color name="system_color">#FAF9FD</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="sign_up_editText_color">#FF0000</color>
+    <color name="sign_up_editText_fill_color">#FFFFFF</color>
+
 </resources>

@@ -2,4 +2,9 @@
 <resources>
     <color name="text_color">#FFFFFF</color>
     <color name="system_color">#121316</color>
+    <color name="background_color">#151515</color>
+    <color name="sign_up_editText_color">#FF0000</color>
+    <color name="sign_up_editText_fill_color">#EEEEEE</color>
+
+
 </resources>
