@@ -20,7 +20,7 @@ import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
 import com.example.youtube.screens.LogIn;
 import com.example.youtube.screens.VideoPlayerActivity;
-import com.example.youtube.screens.EditVideoActivity;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 
@@ -39,6 +39,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         private final ImageView thumbnail;
         private final TextView video_length;
         private final ImageButton video_options;
+        private final ShapeableImageView creator_pic;
 
 
         private VideoViewHolder(View itemView) {
@@ -50,6 +51,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             thumbnail = itemView.findViewById(R.id.thumbnail);
             video_length = itemView.findViewById(R.id.video_length);
             video_options = itemView.findViewById(R.id.tv_video_option);
+            creator_pic = itemView.findViewById(R.id.creator_pic);
         }
     }
 
@@ -80,7 +82,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         if (videos != null) {
             final video current = videos.get(position);
             holder.video_name.setText(current.getVideo_name());
-            holder.creator.setText(current.getCreator());
+            holder.creator.setText(current.getCreator().getName());
             holder.views.setText(current.getViews());
             holder.publish_date.setText(current.getDate_of_release());
             holder.video_length.setText(current.getVideo_length());
@@ -89,6 +91,10 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             String thumbnailName = current.getThumbnail();
             int thumbnailId = mInflater.getContext().getResources().getIdentifier(thumbnailName, "drawable", mInflater.getContext().getPackageName());
             holder.thumbnail.setImageResource(thumbnailId);
+            // load creator picture
+            String creatorPic = current.getCreator().getProfile_pic();
+            int creatorPicId = mInflater.getContext().getResources().getIdentifier(creatorPic, "drawable", mInflater.getContext().getPackageName());
+            holder.creator_pic.setImageResource(creatorPicId);
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -114,10 +120,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
                 else {
                     video selectedVideo = videos.get(position);
                     if (item.getItemId() == R.id.action_edit_video) {
-                        Intent editIntent = new Intent(context, EditVideoActivity.class);
-                        editIntent.putExtra("video_item", selectedVideo);
-                        notifyItemChanged(position);
-                        context.startActivity(editIntent);
+                        // still need to add implementation.
                         return true;
                     } else if (item.getItemId() == R.id.action_delete_video) {
                         videos.remove(position);

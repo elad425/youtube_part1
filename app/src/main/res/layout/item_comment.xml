@@ -5,14 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal"
-    android:padding="15dp">
+    android:orientation="horizontal">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/user_pic"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/thumbnail1"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/circle">
+
+    </com.google.android.material.imageview.ShapeableImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="15dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,10 +75,11 @@
 
     <ImageButton
         android:id="@+id/tv_comment_options"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:contentDescription="@string/edit_comment"
         app:srcCompat="@drawable/ic_options"
-        android:layout_weight="10"/>
+        android:layout_weight="5"/>
 </LinearLayout>

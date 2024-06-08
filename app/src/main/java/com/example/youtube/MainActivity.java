@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         if (tempUser != null){
             user = tempUser;
         }else {
-            user = new user("e", "e", "e", "e");
+            user = new user("e", "e", "e", "thumbnail5");
         }
 
         RecyclerView lstVideos = findViewById(R.id.lstVideos);

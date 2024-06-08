@@ -18,6 +18,7 @@ import com.example.youtube.entities.comment;
 import com.example.youtube.entities.user;
 import com.example.youtube.screens.LogIn;
 import com.example.youtube.screens.VideoPlayerActivity;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private final user user;
     private final Context context;
 
+    private final LayoutInflater mInflater;
+
+
     public CommentsAdapter(ArrayList<comment> commentList, VideoPlayerActivity videoPlayerActivity, user user, Context context) {
+        mInflater = LayoutInflater.from(context);
         this.commentList = commentList;
         this.context = context;
         this.videoPlayerActivity = videoPlayerActivity;
@@ -45,9 +50,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         comment currentComment = commentList.get(position);
-        holder.tvCommentUser.setText(currentComment.getUser());
+        holder.tvCommentUser.setText(currentComment.getUser().getName());
         holder.tvCommentText.setText(currentComment.getComment());
         holder.tvCommentDate.setText(currentComment.getDate());
+
+        String userPic = currentComment.getUser().getProfile_pic();
+        int creatorPicId = mInflater.getContext().getResources().getIdentifier(userPic, "drawable", mInflater.getContext().getPackageName());
+        holder.user_pic.setImageResource(creatorPicId);
 
         holder.tvEditComment.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(v.getContext(), v);
@@ -84,6 +93,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
         TextView tvCommentText;
         TextView tvCommentDate;
         ImageButton tvEditComment;
+        ShapeableImageView user_pic;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +101,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             tvCommentText = itemView.findViewById(R.id.tv_comment_text);
             tvCommentDate = itemView.findViewById(R.id.tv_comment_date);
             tvEditComment = itemView.findViewById(R.id.tv_comment_options);
+            user_pic = itemView.findViewById(R.id.user_pic);
         }
     }
 }

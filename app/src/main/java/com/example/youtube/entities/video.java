@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class video implements Parcelable {
     private String video_name;
-    private String creator;
+    private creator creator;
     private String date_of_release;
     private String views;
     private String likes;
@@ -16,7 +16,7 @@ public class video implements Parcelable {
     private String thumbnail;
     private String video_length;
 
-    public video(String video_name, String creator, String date_of_release, String video_path, String thumbnail, String video_length, String views, String likes) {
+    public video(String video_name, creator creator, String date_of_release, String video_path, String thumbnail, String video_length, String views, String likes) {
         this.video_name = video_name;
         this.creator = creator;
         this.date_of_release = date_of_release;
@@ -30,7 +30,7 @@ public class video implements Parcelable {
 
     protected video(Parcel in) {
         video_name = in.readString();
-        creator = in.readString();
+        creator = in.readParcelable(creator.class.getClassLoader());
         date_of_release = in.readString();
         views = in.readString();
         likes = in.readString();
@@ -60,11 +60,11 @@ public class video implements Parcelable {
         this.video_name = video_name;
     }
 
-    public String getCreator() {
+    public creator getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(creator creator) {
         this.creator = creator;
     }
 
@@ -130,7 +130,7 @@ public class video implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(video_name);
-        dest.writeString(creator);
+        dest.writeParcelable(creator,flags);
         dest.writeString(date_of_release);
         dest.writeString(views);
         dest.writeString(likes);

@@ -9,9 +9,9 @@ import java.io.Serializable;
 
 public class comment implements Parcelable {
     private String comment;
-    private String user;
+    private user user;
     private String date;
-    public comment(String comment, String user, String date) {
+    public comment(String comment, user user, String date) {
         this.comment = comment;
         this.user = user;
         this.date = date;
@@ -19,7 +19,7 @@ public class comment implements Parcelable {
 
     protected comment(Parcel in) {
         comment = in.readString();
-        user = in.readString();
+        user = in.readParcelable(user.class.getClassLoader());
         date = in.readString();
     }
 
@@ -43,11 +43,11 @@ public class comment implements Parcelable {
         this.comment = comment;
     }
 
-    public String getUser() {
+    public user getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(user user) {
         this.user = user;
     }
 
@@ -67,7 +67,7 @@ public class comment implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(comment);
-        dest.writeString(user);
+        dest.writeParcelable(user,flags);
         dest.writeString(date);
     }
 }

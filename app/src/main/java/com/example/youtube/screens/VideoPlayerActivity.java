@@ -28,6 +28,7 @@ import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
 import com.example.youtube.utils.ShowListOfVideos;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -90,11 +91,18 @@ public class VideoPlayerActivity extends AppCompatActivity {
             TextView tvVideoViews = findViewById(R.id.tv_video_views);
             TextView tvCreator = findViewById(R.id.tv_creator);
             TextView tvPublishDate = findViewById(R.id.tv_publish_date);
+            TextView creatorSubCount = findViewById(R.id.tv_creator_subs);
+            ShapeableImageView creatorPic = findViewById(R.id.creator_pic);
 
             tvVideoName.setText(videoItem.getVideo_name());
             tvVideoViews.setText(videoItem.getViews());
-            tvCreator.setText(videoItem.getCreator());
+            tvCreator.setText(videoItem.getCreator().getName());
             tvPublishDate.setText(videoItem.getDate_of_release());
+            creatorSubCount.setText(videoItem.getCreator().getSubs_count());
+
+            String creator_pic = videoItem.getCreator().getProfile_pic();
+            int creatorPicId = getResources().getIdentifier(creator_pic, "drawable",getPackageName());
+            creatorPic.setImageResource(creatorPicId);
 
             // Initialize comments section
             tvComments = findViewById(R.id.tv_comments);
@@ -222,7 +230,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String commentText = input.getText().toString().trim();
             if (!commentText.isEmpty()) {
-                comment newComment = new comment(commentText, user.getName(), "now");
+                comment newComment = new comment(commentText, user, "now");
                 commentList.add(newComment);
                 videos.get(videoNumber).setComments(commentList);
                 commentsAdapter.notifyDataSetChanged();
@@ -255,7 +263,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             if (!editedCommentText.isEmpty()) {
                 commentList.get(position).setComment(editedCommentText);
                 commentList.get(position).setDate("now");
-                commentList.get(position).setUser(user.getName());
+                commentList.get(position).setUser(user);
                 videos.get(videoNumber).setComments(commentList);
                 commentsAdapter.notifyDataSetChanged();
             }
