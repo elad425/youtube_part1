@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtube.R;
+import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
 import com.example.youtube.screens.VideoPlayerActivity;
 
@@ -22,11 +23,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
     private ArrayList<video> filteredVideoList;
     private final ArrayList<video> videoList;
     private final LayoutInflater mInflater;
+    private final user user;
 
-    public SearchAdapter(ArrayList<video> videoList, ArrayList<video> filteredVideoList, Context context) {
+    public SearchAdapter(ArrayList<video> videoList, ArrayList<video> filteredVideoList, Context context, user user) {
         this.videoList = videoList;
         this.filteredVideoList = filteredVideoList;
         this.mInflater = LayoutInflater.from(context);
+        this.user = user;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -52,6 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
             Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
             i.putExtra("video_item", clickedVideoItem);
             i.putExtra("video_list", videoList);
+            i.putExtra("user", user);
             mInflater.getContext().startActivity(i);
         });
     }

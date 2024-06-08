@@ -1,5 +1,6 @@
 package com.example.youtube;
 import com.example.youtube.entities.video;
+import com.example.youtube.entities.user;
 import com.example.youtube.screens.SearchVideo;
 import com.example.youtube.utils.JsonUtils;
 import com.example.youtube.utils.ShowListOfVideos;
@@ -16,11 +17,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ArrayList<video> videos;
+
+    private user user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ArrayList<video> videos;
 
         Intent intent = getIntent();
         ArrayList<video> temp = intent.getParcelableArrayListExtra("video_list");
@@ -30,13 +34,21 @@ public class MainActivity extends AppCompatActivity {
             videos = JsonUtils.loadVideosFromJson(this);
         }
 
+        user tempUser = intent.getParcelableExtra("user");
+        if (tempUser != null){
+            user = tempUser;
+        }else {
+            user = new user("e", "e", "e", "e");
+        }
+
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
-        ShowListOfVideos.displayVideoList(this, lstVideos, videos);
+        ShowListOfVideos.displayVideoList(this, lstVideos, videos, user);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
         btnSearch.setOnClickListener(v -> {
             Intent i = new Intent(this, SearchVideo.class);
             i.putParcelableArrayListExtra("video_list", videos);
+            i.putExtra("user",user);
             startActivity(i);
         });
 
@@ -44,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
         btnCast.setOnClickListener(v -> Toast.makeText(MainActivity.this,
                 "The app doesn't support Chromecast yet", Toast.LENGTH_SHORT).show());
     }
+
 }

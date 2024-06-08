@@ -17,12 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
 import com.example.youtube.adapters.CommentsAdapter;
 import com.example.youtube.entities.comment;
+import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
 import com.example.youtube.utils.ShowListOfVideos;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,21 +46,31 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private ArrayList<comment> commentList;
     private ArrayList<video> videos;
     private int videoNumber;
+    private user user;
+    private video videoItem;
 
     @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
+        Intent Login = new Intent(this, LogIn.class);
 
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
 
         Intent intent = getIntent();
-        video videoItem = intent.getParcelableExtra("video_item");
+        videoItem = intent.getParcelableExtra("video_item");
         videos = intent.getParcelableArrayListExtra("video_list");
+        user = intent.getParcelableExtra("user");
+
+        if (user != null) {
+            isLiked = user.isLiked(videoItem);
+            isDisliked = user.isDisLiked(videoItem);
+        }
+
         if (videoItem != null && videos != null) {
             videoNumber = findVideoPlace(videos, videoItem);
-            ShowListOfVideos.displayVideoList(this, lstVideos, videos);
+            ShowListOfVideos.displayVideoList(this, lstVideos, videos, user);
             String videoPath = videoItem.getVideo_path();
 
             // Initialize the VideoView
@@ -96,16 +108,27 @@ public class VideoPlayerActivity extends AppCompatActivity {
             tvComments.setOnClickListener(v -> toggleComments());
 
             rvComments.setLayoutManager(new LinearLayoutManager(this));
-            commentsAdapter = new CommentsAdapter(commentList,this);
+            commentsAdapter = new CommentsAdapter(commentList,this, user, this);
             rvComments.setAdapter(commentsAdapter);
 
-            fabAddComment.setOnClickListener(v -> showAddCommentDialog());
+            fabAddComment.setOnClickListener(v -> {
+                if (user == null) {
+                    Toast.makeText(this, "please login in order to add a comment",
+                            Toast.LENGTH_SHORT).show();
+                    startActivity(Login);
+                } else{
+                    showAddCommentDialog();
+                }
+            });
         }
 
         ImageButton btnShare = findViewById(R.id.tv_btn_share);
         ImageButton btnLike = findViewById(R.id.tv_btn_like);
         ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
         ImageButton btnBack = findViewById(R.id.tv_video_back);
+
+        if (isLiked){btnLike.setImageResource(R.drawable.ic_like_fill);}
+        if (isDisliked){btnDislike.setImageResource(R.drawable.ic_dislike_fill);}
 
         btnBack.setOnClickListener(v -> handleBackAction());
 
@@ -116,8 +139,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
         });
 
+
         btnLike.setOnClickListener(v -> {
-            if (!isLiked) {
+            if (user == null) {
+                Toast.makeText(this, "please login in order to like",
+                        Toast.LENGTH_SHORT).show();
+                startActivity(Login);
+            } else if (!isLiked) {
+                user.addToLiked(videoItem);
+                user.removeFromDisLiked(videoItem);
                 btnLike.setImageResource(R.drawable.ic_like_fill);
                 isLiked = true;
                 if (isDisliked) {
@@ -131,7 +161,13 @@ public class VideoPlayerActivity extends AppCompatActivity {
         });
 
         btnDislike.setOnClickListener(v -> {
-            if (!isDisliked) {
+            if (user == null) {
+                startActivity(Login);
+                Toast.makeText(this, "please login in order to dislike",
+                        Toast.LENGTH_SHORT).show();
+            } else if (!isDisliked) {
+                user.addToDisLiked(videoItem);
+                user.removeFromLiked(videoItem);
                 btnDislike.setImageResource(R.drawable.ic_dislike_fill);
                 isDisliked = true;
                 if (isLiked) {
@@ -158,6 +194,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void handleBackAction() {
         Intent i = new Intent(this, MainActivity.class);
         i.putParcelableArrayListExtra("video_list", videos);
+        i.putExtra("user", user);
         startActivity(i);
     }
 
@@ -185,7 +222,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String commentText = input.getText().toString().trim();
             if (!commentText.isEmpty()) {
-                comment newComment = new comment(commentText, "CurrentUser", "now");
+                comment newComment = new comment(commentText, user.getName(), "now");
                 commentList.add(newComment);
                 videos.get(videoNumber).setComments(commentList);
                 commentsAdapter.notifyDataSetChanged();
@@ -218,6 +255,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             if (!editedCommentText.isEmpty()) {
                 commentList.get(position).setComment(editedCommentText);
                 commentList.get(position).setDate("now");
+                commentList.get(position).setUser(user.getName());
                 videos.get(videoNumber).setComments(commentList);
                 commentsAdapter.notifyDataSetChanged();
             }

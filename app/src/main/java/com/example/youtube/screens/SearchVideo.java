@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
 import com.example.youtube.adapters.SearchAdapter;
+import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
 import com.example.youtube.utils.JsonUtils;
 
@@ -37,9 +38,10 @@ public class SearchVideo extends AppCompatActivity {
             videos = JsonUtils.loadVideosFromJson(this);
         }
 
+        user user = intent.getParcelableExtra("user");
         SearchView searchView = findViewById(R.id.search_view);
         filteredList = new ArrayList<>();
-        searchAdapter = new SearchAdapter(videos,filteredList, this);
+        searchAdapter = new SearchAdapter(videos,filteredList, this, user);
 
         RecyclerView rvSearch = findViewById(R.id.rv_search);
         rvSearch.setLayoutManager(new LinearLayoutManager(this));

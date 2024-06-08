@@ -10,11 +10,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.youtube.R;
+import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
+import com.example.youtube.screens.LogIn;
 import com.example.youtube.screens.VideoPlayerActivity;
+import com.example.youtube.screens.EditVideoActivity;
 
 import java.util.ArrayList;
 
@@ -22,6 +28,9 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
     private final LayoutInflater mInflater;
     private ArrayList<video> videos;
+    private final Context context;
+    private final user user;
+
     static class VideoViewHolder extends RecyclerView.ViewHolder {
         private final TextView video_name;
         private final TextView creator;
@@ -30,6 +39,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         private final ImageView thumbnail;
         private final TextView video_length;
         private final ImageButton video_options;
+
 
         private VideoViewHolder(View itemView) {
             super(itemView);
@@ -51,13 +61,13 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
 
     @Override
     public int getItemCount() {
-        if (videos != null)
-            return videos.size();
-        else return 0;
+        return videos != null ? videos.size() : 0;
     }
 
-    public VideoListAdapter(Context context) {
+    public VideoListAdapter(Context context, user user) {
         mInflater = LayoutInflater.from(context);
+        this.context = context;
+        this.user = user;
     }
 
     @NonNull
@@ -85,6 +95,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             video clickedVideoItem = videos.get(holder.getAdapterPosition());
             Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
             i.putExtra("video_item", clickedVideoItem);
+            i.putExtra("user", user);
             i.putParcelableArrayListExtra("video_list", videos);
             mInflater.getContext().startActivity(i);
         });
@@ -94,18 +105,30 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             popup.getMenuInflater().inflate(R.menu.video_options_menu, popup.getMenu());
 
             popup.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.action_edit_video) {
-                    // implement
-                    return true;
+                if (user == null){
+                    Intent Login = new Intent(context, LogIn.class);
+                    Toast.makeText(context, "please login in order to edit or delete videos",
+                            Toast.LENGTH_SHORT).show();
+                    context.startActivity(Login);
                 }
-                else if (item.getItemId() == R.id.action_delete_video) {
-                    // implement
-                    return true;
+                else {
+                    video selectedVideo = videos.get(position);
+                    if (item.getItemId() == R.id.action_edit_video) {
+                        Intent editIntent = new Intent(context, EditVideoActivity.class);
+                        editIntent.putExtra("video_item", selectedVideo);
+                        notifyItemChanged(position);
+                        context.startActivity(editIntent);
+                        return true;
+                    } else if (item.getItemId() == R.id.action_delete_video) {
+                        videos.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, videos.size());
+                        return true;
+                    }
                 }
                 return false;
             });
             popup.show();
         });
     }
-
 }
