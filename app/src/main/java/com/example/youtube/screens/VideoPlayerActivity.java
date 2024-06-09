@@ -5,6 +5,7 @@ import static com.example.youtube.utils.ArrayFunction.findVideoPlace;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.MediaController;
@@ -38,6 +40,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     private boolean isLiked = false;
     private boolean isDisliked = false;
+    private boolean isSubscribe = false;
     private boolean areCommentsVisible = false;
     private RecyclerView rvComments;
     private TextView tvComments;
@@ -67,6 +70,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         if (user != null) {
             isLiked = user.isLiked(videoItem);
             isDisliked = user.isDisLiked(videoItem);
+            isSubscribe = user.isSubs(videoItem.getCreator());
         }
 
         if (videoItem != null && videos != null) {
@@ -134,9 +138,15 @@ public class VideoPlayerActivity extends AppCompatActivity {
         ImageButton btnLike = findViewById(R.id.tv_btn_like);
         ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
         ImageButton btnBack = findViewById(R.id.tv_video_back);
+        Button btnSubscribe = findViewById(R.id.btn_subscribe);
 
         if (isLiked){btnLike.setImageResource(R.drawable.ic_like_fill);}
         if (isDisliked){btnDislike.setImageResource(R.drawable.ic_dislike_fill);}
+        if (isSubscribe){
+            btnSubscribe.setBackgroundColor(ContextCompat.getColor(this, R.color.text_color));
+            btnSubscribe.setTextColor(ContextCompat.getColor(this, R.color.system_color));
+            btnSubscribe.setText(R.string.unsubscribe);
+        }
 
         btnBack.setOnClickListener(v -> handleBackAction());
 
@@ -147,6 +157,25 @@ public class VideoPlayerActivity extends AppCompatActivity {
             }
         });
 
+        btnSubscribe.setOnClickListener(v -> {
+            if (user == null) {
+                Toast.makeText(this, "please login in order to subscribe",
+                        Toast.LENGTH_SHORT).show();
+                startActivity(Login);
+            } else if (!isSubscribe) {
+                user.addToSubs(videoItem.getCreator());
+                btnSubscribe.setBackgroundColor(ContextCompat.getColor(this, R.color.text_color));
+                btnSubscribe.setTextColor(ContextCompat.getColor(this, R.color.system_color));
+                btnSubscribe.setText(R.string.unsubscribe);
+                isSubscribe = true;
+            } else {
+                user.removeFromSubs(videoItem.getCreator());
+                btnSubscribe.setBackgroundColor(ContextCompat.getColor(this, R.color.red));
+                btnSubscribe.setTextColor(ContextCompat.getColor(this, R.color.text_color));
+                btnSubscribe.setText(R.string.subscribe);
+                isSubscribe = false;
+            }
+        });
 
         btnLike.setOnClickListener(v -> {
             if (user == null) {

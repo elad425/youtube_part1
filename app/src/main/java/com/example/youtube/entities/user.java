@@ -15,7 +15,7 @@ public class user implements Parcelable {
     private String profile_pic;
     private ArrayList<video> likedVideos;
     private ArrayList<video> dislikedVideos;
-    private ArrayList<String> subs;
+    private ArrayList<creator> subs;
     public user(String name, String email, String password, String profile_pic) {
         this.name = name;
         this.email = email;
@@ -33,7 +33,7 @@ public class user implements Parcelable {
         profile_pic = in.readString();
         likedVideos = in.createTypedArrayList(video.CREATOR);
         dislikedVideos = in.createTypedArrayList(video.CREATOR);
-        subs = in.createStringArrayList();
+        subs = in.createTypedArrayList(creator.CREATOR);
     }
 
     public static final Creator<user> CREATOR = new Creator<user>() {
@@ -96,11 +96,11 @@ public class user implements Parcelable {
         this.dislikedVideos = dislikedVideos;
     }
 
-    public ArrayList<String> getSubs() {
+    public ArrayList<creator> getSubs() {
         return subs;
     }
 
-    public void setSubs(ArrayList<String> subs) {
+    public void setSubs(ArrayList<creator> subs) {
         this.subs = subs;
     }
 
@@ -130,11 +130,11 @@ public class user implements Parcelable {
         dislikedVideos.removeIf(v -> Objects.equals(v.getVideo_name(), video.getVideo_name()));
     }
 
-    public void addToSubs(String creator){
+    public void addToSubs(creator creator){
         this.subs.add(creator);
     }
 
-    public void removeFromSubs(String creator){
+    public void removeFromSubs(creator creator){
         this.subs.remove(creator);
     }
 
@@ -156,8 +156,13 @@ public class user implements Parcelable {
         return false;
     }
 
-    public boolean isSubs(String creator){
-        return subs.contains(creator);
+    public boolean isSubs(creator creator){
+        for (creator c : subs){
+            if (Objects.equals(c.getName(), creator.getName())){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -173,6 +178,6 @@ public class user implements Parcelable {
         dest.writeString(profile_pic);
         dest.writeTypedList(likedVideos);
         dest.writeTypedList(dislikedVideos);
-        dest.writeList(subs);
+        dest.writeTypedList(subs);
     }
 }

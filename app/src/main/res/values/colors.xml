@@ -2,4 +2,5 @@
 <resources>
     <color name="text_color">#FF000000</color>
     <color name="system_color">#FAF9FD</color>
+    <color name="red">#FF0000</color>
 </resources>
