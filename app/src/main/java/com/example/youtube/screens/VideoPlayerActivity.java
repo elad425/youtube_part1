@@ -38,7 +38,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 public class VideoPlayerActivity extends AppCompatActivity {
-
     private boolean isLiked = false;
     private boolean isDisliked = false;
     private boolean isSubscribe = false;

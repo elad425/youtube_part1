@@ -28,7 +28,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private final VideoPlayerActivity videoPlayerActivity;
     private final user user;
     private final Context context;
-
     private final LayoutInflater mInflater;
 
 

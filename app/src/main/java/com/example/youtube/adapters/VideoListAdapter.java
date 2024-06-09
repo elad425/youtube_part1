@@ -25,7 +25,6 @@ import com.google.android.material.imageview.ShapeableImageView;
 import java.util.ArrayList;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoViewHolder> {
-
     private final LayoutInflater mInflater;
     private ArrayList<video> videos;
     private final Context context;

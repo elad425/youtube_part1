@@ -18,9 +18,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
     private ArrayList<video> videos;
-
     private user user;
 
     @Override
