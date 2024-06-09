@@ -2,11 +2,13 @@ package com.example.youtube.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,6 +31,9 @@ public class SearchVideo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_video);
+
+        Window window = getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
 
         Intent intent = getIntent();
         ArrayList<video> temp = intent.getParcelableArrayListExtra("video_list");
@@ -81,7 +86,7 @@ public class SearchVideo extends AppCompatActivity {
         filteredList.clear();
         for (video video : videos) {
             if (video.getVideo_name().toLowerCase().startsWith(query.toLowerCase())
-                    && !query.equals("")) {
+                    && !query.isEmpty()) {
                 filteredList.add(video);
             }
         }

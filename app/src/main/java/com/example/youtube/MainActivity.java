@@ -6,10 +6,12 @@ import com.example.youtube.utils.JsonUtils;
 import com.example.youtube.utils.ShowListOfVideos;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -25,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Window window = getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
 
         Intent intent = getIntent();
         ArrayList<video> temp = intent.getParcelableArrayListExtra("video_list");
