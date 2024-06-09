@@ -12,25 +12,29 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtube.R;
+import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
 import com.example.youtube.screens.VideoPlayerActivity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewHolder> {
 
-    private List<video> videoList;
-
+    private ArrayList<video> filteredVideoList;
+    private final ArrayList<video> videoList;
     private final LayoutInflater mInflater;
+    private final user user;
 
-    public SearchAdapter(List<video> videoList, Context context) {
+    public SearchAdapter(ArrayList<video> videoList, ArrayList<video> filteredVideoList, Context context, user user) {
         this.videoList = videoList;
+        this.filteredVideoList = filteredVideoList;
         this.mInflater = LayoutInflater.from(context);
+        this.user = user;
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setFilteredList(List<video> filteredList){
-        this.videoList = filteredList;
+    public void setFilteredList(ArrayList<video> filteredList){
+        this.filteredVideoList = filteredList;
         notifyDataSetChanged();
     }
 
@@ -43,28 +47,26 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.VideoViewH
 
     @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        video video = videoList.get(position);
+        video video = filteredVideoList.get(position);
         holder.searchResultTextView.setText(video.getVideo_name());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                video clickedVideoItem = videoList.get(holder.getAdapterPosition());
-                Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
-                i.putExtra("video_item", clickedVideoItem);
-                mInflater.getContext().startActivity(i);
-            }
+        holder.itemView.setOnClickListener(v -> {
+            video clickedVideoItem = filteredVideoList.get(holder.getAdapterPosition());
+            Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
+            i.putExtra("video_item", clickedVideoItem);
+            i.putExtra("video_list", videoList);
+            i.putExtra("user", user);
+            mInflater.getContext().startActivity(i);
         });
     }
 
     @Override
     public int getItemCount() {
-        return videoList.size();
+        return filteredVideoList.size();
     }
 
     static class VideoViewHolder extends RecyclerView.ViewHolder {
         TextView searchResultTextView;
-
         public VideoViewHolder(@NonNull View itemView) {
             super(itemView);
             searchResultTextView = itemView.findViewById(R.id.search_result);

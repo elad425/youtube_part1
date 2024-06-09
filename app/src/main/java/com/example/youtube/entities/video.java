@@ -1,21 +1,22 @@
 package com.example.youtube.entities;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import java.util.ArrayList;
-import java.util.List;
 
-public class video implements Serializable {
+public class video implements Parcelable {
     private String video_name;
-    private String creator;
+    private creator creator;
     private String date_of_release;
     private String views;
     private String likes;
-    private List<comment> comments;
+    private ArrayList<comment> comments;
     private String video_path;
     private String thumbnail;
     private String video_length;
 
-    public video(String video_name, String creator, String date_of_release, String video_path, String thumbnail, String video_length, String views, String likes) {
+    public video(String video_name, creator creator, String date_of_release, String video_path, String thumbnail, String video_length, String views, String likes) {
         this.video_name = video_name;
         this.creator = creator;
         this.date_of_release = date_of_release;
@@ -27,6 +28,30 @@ public class video implements Serializable {
         this.likes = likes;
     }
 
+    protected video(Parcel in) {
+        video_name = in.readString();
+        creator = in.readParcelable(creator.class.getClassLoader());
+        date_of_release = in.readString();
+        views = in.readString();
+        likes = in.readString();
+        comments = in.createTypedArrayList(comment.CREATOR);
+        video_path = in.readString();
+        thumbnail = in.readString();
+        video_length = in.readString();
+    }
+
+    public static final Creator<video> CREATOR = new Creator<video>() {
+        @Override
+        public video createFromParcel(Parcel in) {
+            return new video(in);
+        }
+
+        @Override
+        public video[] newArray(int size) {
+            return new video[size];
+        }
+    };
+
     public String getVideo_name() {
         return video_name;
     }
@@ -35,11 +60,11 @@ public class video implements Serializable {
         this.video_name = video_name;
     }
 
-    public String getCreator() {
+    public creator getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(creator creator) {
         this.creator = creator;
     }
 
@@ -65,11 +90,11 @@ public class video implements Serializable {
         this.likes = likes;
     }
 
-    public List<comment> getComments() {
+    public ArrayList<comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<comment> comments) {
+    public void setComments(ArrayList<comment> comments) {
         this.comments = comments;
     }
 
@@ -95,5 +120,24 @@ public class video implements Serializable {
 
     public void setVideo_length(String video_length) {
         this.video_length = video_length;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(video_name);
+        dest.writeParcelable(creator,flags);
+        dest.writeString(date_of_release);
+        dest.writeString(views);
+        dest.writeString(likes);
+        dest.writeTypedList(comments);
+        dest.writeString(video_path);
+        dest.writeString(thumbnail);
+        dest.writeString(video_length);
+
     }
 }
