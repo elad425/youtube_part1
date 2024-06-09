@@ -171,7 +171,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             } else {
                 user.removeFromSubs(videoItem.getCreator());
                 btnSubscribe.setBackgroundColor(ContextCompat.getColor(this, R.color.red));
-                btnSubscribe.setTextColor(ContextCompat.getColor(this, R.color.text_color));
+                btnSubscribe.setTextColor(ContextCompat.getColor(this, R.color.white));
                 btnSubscribe.setText(R.string.subscribe);
                 isSubscribe = false;
             }
