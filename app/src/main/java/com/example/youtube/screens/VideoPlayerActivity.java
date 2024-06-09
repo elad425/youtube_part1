@@ -195,6 +195,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     isDisliked = false;
                 }
             } else {
+                user.removeFromLiked(videoItem);
                 btnLike.setImageResource(R.drawable.ic_like);
                 isLiked = false;
             }
@@ -215,6 +216,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
                     isLiked = false;
                 }
             } else {
+                user.removeFromDisLiked(videoItem);
                 btnDislike.setImageResource(R.drawable.ic_dislike);
                 isDisliked = false;
             }
@@ -236,6 +238,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         i.putParcelableArrayListExtra("video_list", videos);
         i.putExtra("user", user);
         startActivity(i);
+        finish();
     }
 
     private void toggleComments() {
