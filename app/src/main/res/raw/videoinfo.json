@@ -1,7 +1,11 @@
 [
   {
     "video_name": "video player test",
-    "creator": "elad cohen",
+    "creator":{
+      "name": "elad cohen",
+      "subs_count": "100M",
+      "profile_pic": "thumbnail2"
+      },
     "date_of_release": "20 hours ago",
     "video_path": "android.resource://com.example.youtube/raw/video3",
     "thumbnail": "thumbnail1",
@@ -11,49 +15,93 @@
     "comments": [
       {
         "comment": "what an amazing video!!",
-        "user": "mark zuckerberg",
+        "user": {
+          "name" :"mark zuckerberg" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail3"
+        },
         "date": "one month ago"
       },
       {
         "comment": "this comment is to check if the limits off a single comment are ok and to blah blah blah",
-        "user": "ilan brownfield",
+        "user":{
+          "name" :"ilan brownfield" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "1 minute ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       }
     ]
   },
   {
     "video_name": "video player test to see if each video play different file",
-    "creator": "yossef israeli",
+    "creator": {
+      "name": "yossef israeli",
+      "subs_count": "20K",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "3 weeks ago",
     "video_path": "android.resource://com.example.youtube/raw/video2",
     "thumbnail": "thumbnail2",
@@ -63,24 +111,43 @@
     "comments": [
       {
       "comment": "what an amazing video!!",
-      "user": "mark zuckerberg",
+      "user": {
+        "name" :"mark zuckerberg" ,
+        "email" :"a@" ,
+        "password" :"12345678" ,
+        "profile_pic" :"thumbnail3"
+      },
       "date": "one month ago"
     },
       {
         "comment": "this comment is to check if the limits off a single comment are ok and to blah blah blah",
-        "user": "ilan brownfield",
+        "user":{
+          "name" :"ilan brownfield" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "1 minute ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       }
     ]
   },
   {
     "video_name": "video player test to check if list is scrollable",
-    "creator": "elon musk",
+    "creator": {
+      "name": "elon musk",
+      "subs_count": "10M",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "5 days ago",
     "video_path": "android.resource://com.example.youtube/raw/video1",
     "thumbnail": "thumbnail3",
@@ -90,24 +157,43 @@
     "comments": [
       {
         "comment": "what an amazing video!!",
-        "user": "mark zuckerberg",
+        "user": {
+          "name" :"mark zuckerberg" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail3"
+        },
         "date": "one month ago"
       },
       {
         "comment": "this comment is to check if the limits off a single comment are ok and to blah blah blah",
-        "user": "ilan brownfield",
+        "user":{
+          "name" :"ilan brownfield" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "1 minute ago"
       },
       {
         "comment": "this video is do bad:(",
-        "user": "moshe rabino",
+        "user":{
+          "name" :"moshe rabino" ,
+          "email" :"a@" ,
+          "password" :"12345678" ,
+          "profile_pic" :"thumbnail4"
+        },
         "date": "2000 years ago"
       }
     ]
   },
   {
     "video_name": "Inside Out 2 Trailer (2024)",
-    "creator": "Rotten tomato family",
+    "creator":{
+      "name": "rotten tomato",
+      "subs_count": "990K",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "3 months ago",
     "video_path": "android.resource://com.example.youtube/raw/video4",
     "thumbnail": "thumbnail4",
@@ -118,7 +204,11 @@
   },
   {
     "video_name": "Kung Fu Panda 4 | Official Trailer (Universal Pictures)",
-    "creator": "Universal pictures",
+    "creator":{
+      "name": "Universal pictures",
+      "subs_count": "8M",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "5 months ago",
     "video_path": "android.resource://com.example.youtube/raw/video5",
     "thumbnail": "thumbnail5",
@@ -129,7 +219,11 @@
   },
   {
     "video_name": "HOW TO TRAIN YOUR DRAGON: THE HIDDEN WORLD - Official Trailer",
-    "creator": "Universal pictures",
+    "creator":{
+      "name": "Universal pictures",
+      "subs_count": "8M",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "5 years ago",
     "video_path": "android.resource://com.example.youtube/raw/video6",
     "thumbnail": "thumbnail6",
@@ -140,7 +234,11 @@
   },
   {
     "video_name": "OpenAI Plays Hide and Seek",
-    "creator": "motato motati the man",
+    "creator":{
+      "name": "motato motati",
+      "subs_count": "55.3K",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "today",
     "video_path": "android.resource://com.example.youtube/raw/video7",
     "thumbnail": "thumbnail7",
@@ -151,7 +249,11 @@
   },
   {
     "video_name": "World's Fastest Camera Drone Vs F1 Car",
-    "creator": "Red bull",
+    "creator":{
+      "name": "red bull",
+      "subs_count": "12M",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "5 days ago",
     "video_path": "android.resource://com.example.youtube/raw/video8",
     "thumbnail": "thumbnail8",
@@ -162,7 +264,11 @@
   },
   {
     "video_name": "FULL FILM: McLaren Speedtail vs F35 Fighter Jet",
-    "creator": "top gear",
+    "creator":{
+      "name": "top gear",
+      "subs_count": "3M",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "6 days ago",
     "video_path": "android.resource://com.example.youtube/raw/video9",
     "thumbnail": "thumbnail9",
@@ -173,7 +279,11 @@
   },
   {
     "video_name": "I Jumped From Space",
-    "creator": "red bull",
+    "creator":{
+      "name": "red bull",
+      "subs_count": "12M",
+      "profile_pic": "thumbnail1"
+    },
     "date_of_release": "3 years ago",
     "video_path": "android.resource://com.example.youtube/raw/video10",
     "thumbnail": "thumbnail10",

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">app name</string>
+    <string name="app_name">YouTube</string>
     <string name="notification">notification</string>
     <string name="search">search</string>
     <string name="account">account</string>
@@ -25,4 +25,18 @@
     <string name="toggle_comments">toggle_comments</string>
     <string name="add_comment">add comment</string>
     <string name="enter">enter</string>
+    <string name="edit_comment">edit comment</string>
+    <string name="delete_comment">Delete Comment</string>
+    <string name="edit_comment_text">Edit Comment</string>
+    <string name="cast">cast</string>
+    <string name="video_option">video option</string>
+    <string name="edit_video">edit video</string>
+    <string name="delete_video">delete video</string>
+    <string name="video_name">Video Name</string>
+    <string name="creator">Creator</string>
+    <string name="video_path">Video Path</string>
+    <string name="video_length">Video Length</string>
+    <string name="subscribe">subscribe</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="creator_profile_pic">creator profile pic</string>
 </resources>
