@@ -114,7 +114,11 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
             String creator_pic = videoItem.getCreator().getProfile_pic();
             int creatorPicId = getResources().getIdentifier(creator_pic, "drawable", getPackageName());
-            creatorPic.setImageResource(creatorPicId);
+            if (creatorPicId != 0) {
+                creatorPic.setImageResource(creatorPicId);
+            } else {
+                creatorPic.setImageURI(Uri.parse(creator_pic));
+            }
 
             // Initialize comments section
             tvComments = findViewById(R.id.tv_comments);

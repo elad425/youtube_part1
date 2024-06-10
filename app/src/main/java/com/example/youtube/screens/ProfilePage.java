@@ -3,10 +3,9 @@ package com.example.youtube.screens;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,9 +44,13 @@ public class ProfilePage extends AppCompatActivity {
 
             username.setText(user.getName());
             user_email.setText(user.getEmail());
-            String creator_pic = user.getProfile_pic();
-            int creatorPicId = getResources().getIdentifier(creator_pic, "drawable",getPackageName());
-            user_pic.setImageResource(creatorPicId);
+            String profile_pic = user.getProfile_pic();
+            int profilePicId = getResources().getIdentifier(profile_pic, "drawable",getPackageName());
+            if (profilePicId != 0) {
+                user_pic.setImageResource(profilePicId);
+            } else {
+                user_pic.setImageURI(Uri.parse(profile_pic));
+            }
 
             btnLogIn.setText(R.string.logOut);
             btnLogIn.setOnClickListener(v -> onConfirmClick());

@@ -98,7 +98,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             // load creator picture
             String creatorPic = current.getCreator().getProfile_pic();
             int creatorPicId = mInflater.getContext().getResources().getIdentifier(creatorPic, "drawable", mInflater.getContext().getPackageName());
-            holder.creator_pic.setImageResource(creatorPicId);
+            if (creatorPicId != 0) {
+                holder.creator_pic.setImageResource(creatorPicId);
+            } else {
+                holder.creator_pic.setImageURI(Uri.parse(creatorPic));
+            }
         }
 
         holder.itemView.setOnClickListener(v -> {
