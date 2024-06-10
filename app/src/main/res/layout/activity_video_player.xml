@@ -40,25 +40,38 @@
 
             </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
 
                 <TextView
                     android:id="@+id/tv_video_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_light"
                     android:paddingHorizontal="10dp"
                     android:text="@string/video_title"
                     android:textColor="@color/text_color"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:layout_weight="8"
                     tools:text="Sample Video Title"
                     tools:ignore="MissingConstraints" />
-            </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/edit_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/edit_video"
+                    app:srcCompat="@drawable/ic_edit" />
+
+                </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -120,21 +133,23 @@
                         android:padding="8dp"
                         android:src="@drawable/thumbnail1"
                         android:scaleType="centerCrop"
-                        app:shapeAppearanceOverlay="@style/circle">
+                        app:shapeAppearanceOverlay="@style/circle"
+                        android:layout_weight="0">
 
                     </com.google.android.material.imageview.ShapeableImageView>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="10">
+                        android:layout_weight="50"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/tv_creator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/creator_name"
-                            android:textSize="17sp"
+                            android:textSize="15sp"
                             android:layout_marginStart="3dp"
                             android:paddingVertical="5dp"
                             android:layout_gravity="center_vertical"
@@ -148,7 +163,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/views"
                             android:layout_marginStart="10dp"
-                            android:paddingVertical="7dp"
+                            android:paddingVertical="5dp"
                             android:textSize="15sp"
                             android:layout_gravity="center_vertical"
                             android:fontFamily="@font/poppins_light"
@@ -156,16 +171,16 @@
                             tools:text="1M" />
                     </LinearLayout>
 
-
                     <Button
                         android:id="@+id/btn_subscribe"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="10dp"
+                        android:padding="1dp"
                         android:textColor="@color/white"
                         android:text="@string/subscribe"
-                        android:backgroundTint="@color/red">
-
+                        android:backgroundTint="@color/red"
+                        android:layout_weight="1">
                     </Button>
                 </LinearLayout>
 

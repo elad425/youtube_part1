@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/input_video_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Video Name" />
+
+    <Button
+        android:id="@+id/btn_select_thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Thumbnail" />
+
+    <Button
+        android:id="@+id/btn_select_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Video" />
+</LinearLayout>
