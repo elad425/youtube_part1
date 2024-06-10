@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoViewHolder> {
     private final LayoutInflater mInflater;
     private ArrayList<video> videos;
+    private ArrayList<video> filteredVideos;
     private final Context context;
     private final user user;
 
@@ -40,7 +41,6 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         private final TextView video_length;
         private final ImageButton video_options;
         private final ShapeableImageView creator_pic;
-
 
         private VideoViewHolder(View itemView) {
             super(itemView);
@@ -58,12 +58,13 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     @SuppressLint("NotifyDataSetChanged")
     public void setVideos(ArrayList<video> v) {
         videos = v;
+        filteredVideos = new ArrayList<>(v);
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return videos != null ? videos.size() : 0;
+        return filteredVideos != null ? filteredVideos.size() : 0;
     }
 
     public VideoListAdapter(Context context, user user) {
@@ -73,14 +74,16 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     }
 
     @NonNull
+    @Override
     public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.item_video, parent, false);
         return new VideoViewHolder(itemView);
     }
 
+    @Override
     public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
-        if (videos != null) {
-            final video current = videos.get(position);
+        if (filteredVideos != null) {
+            final video current = filteredVideos.get(position);
             holder.video_name.setText(current.getVideo_name());
             holder.creator.setText(current.getCreator().getName());
             holder.views.setText(current.getViews());
@@ -95,7 +98,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             } else {
                 holder.thumbnail.setImageURI(Uri.parse(thumbnailName));
             }
-            // load creator picture
+            // Load creator picture
             String creatorPic = current.getCreator().getProfile_pic();
             int creatorPicId = mInflater.getContext().getResources().getIdentifier(creatorPic, "drawable", mInflater.getContext().getPackageName());
             if (creatorPicId != 0) {
@@ -106,11 +109,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         }
 
         holder.itemView.setOnClickListener(v -> {
-            video clickedVideoItem = videos.get(holder.getAdapterPosition());
+            video clickedVideoItem = filteredVideos.get(holder.getAdapterPosition());
             Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
             i.putExtra("video_item", clickedVideoItem);
             i.putExtra("user", user);
-            i.putParcelableArrayListExtra("video_list", videos);
+            i.putParcelableArrayListExtra("video_list", new ArrayList<>(videos)); // Pass original list
             mInflater.getContext().startActivity(i);
         });
 
@@ -119,21 +122,19 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             popup.getMenuInflater().inflate(R.menu.video_options_menu, popup.getMenu());
 
             popup.setOnMenuItemClickListener(item -> {
-                if (user == null){
+                if (user == null) {
                     Intent Login = new Intent(context, LogIn.class);
-                    Toast.makeText(context, "please login in order to save for ",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "please login in order to save for", Toast.LENGTH_SHORT).show();
                     context.startActivity(Login);
-                }
-                else {
+                } else {
                     if (item.getItemId() == R.id.action_delete_video) {
                         videos.remove(position);
+                        filteredVideos.remove(position);
                         notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, videos.size());
+                        notifyItemRangeChanged(position, filteredVideos.size());
                         return true;
                     } else if (item.getItemId() == R.id.action_download) {
-                        Toast.makeText(context, "sign up to youtube premium for downloading videos",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "sign up to youtube premium for downloading videos", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 }
@@ -143,4 +144,22 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
         });
     }
 
+    public void filter(video objectToExclude) {
+        if (objectToExclude == null) {
+            resetFilter();
+        } else {
+            filteredVideos.clear();
+            for (video vid : videos) {
+                if (!vid.getVideo_name().equals(objectToExclude.getVideo_name())) {
+                    filteredVideos.add(vid);
+                }
+            }
+            notifyDataSetChanged();
+        }
+    }
+
+    public void resetFilter() {
+        filteredVideos = new ArrayList<>(videos);
+        notifyDataSetChanged();
+    }
 }

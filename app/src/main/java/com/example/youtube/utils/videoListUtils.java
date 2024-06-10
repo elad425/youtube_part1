@@ -12,11 +12,12 @@ import java.util.Objects;
 
 public class videoListUtils {
 
-    public static void displayVideoList(Context context, RecyclerView lstVideos, ArrayList<video> videos, user user) {
+    public static void displayVideoList(Context context, RecyclerView lstVideos, ArrayList<video> videos, user user, video filter) {
         final VideoListAdapter adapter = new VideoListAdapter(context, user);
         lstVideos.setAdapter(adapter);
         lstVideos.setLayoutManager(new LinearLayoutManager(context));
         adapter.setVideos(videos);
+        adapter.filter(filter);
     }
 
     public static int findVideoPlace (ArrayList<video> videos, video video){

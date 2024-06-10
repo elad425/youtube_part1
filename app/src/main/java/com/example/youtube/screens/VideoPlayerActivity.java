@@ -83,7 +83,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         if (videoItem != null && videos != null) {
             videoPosition = findVideoPlace(videos, videoItem);
-            videoListUtils.displayVideoList(this, lstVideos, videos, user);
+            videoListUtils.displayVideoList(this, lstVideos, videos, user, videoItem);
             String videoPath = videoItem.getVideo_path();
 
             // Initialize the VideoView
