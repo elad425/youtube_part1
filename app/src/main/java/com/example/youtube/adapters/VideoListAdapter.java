@@ -124,7 +124,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             popup.setOnMenuItemClickListener(item -> {
                 if (user == null) {
                     Intent Login = new Intent(context, LogIn.class);
-                    Toast.makeText(context, "please login in order to save for", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "please login in order to download or delete a video", Toast.LENGTH_SHORT).show();
                     context.startActivity(Login);
                 } else {
                     if (item.getItemId() == R.id.action_delete_video) {
