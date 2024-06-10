@@ -1,8 +1,10 @@
 package com.example.youtube.screens;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.Button;
@@ -25,7 +27,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class AddVideoActivity extends AppCompatActivity {
-
     private static final int PICK_VIDEO_REQUEST = 1;
     private static final int PICK_THUMBNAIL_REQUEST  = 2;
     private EditText videoNameEditText;
@@ -39,6 +40,16 @@ public class AddVideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_video);
+
+        // request permissions
+        if (Build.VERSION.SDK_INT >= 33) {
+            requestPermissions(new String[]{
+                    Manifest.permission.READ_MEDIA_VIDEO,
+                    Manifest.permission.READ_MEDIA_IMAGES,
+            }, 1);
+        } else{
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
+        }
 
         videoNameEditText = findViewById(R.id.video_name);
         thumbnailImageView = findViewById(R.id.thumbnail_image);

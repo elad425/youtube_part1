@@ -1,12 +1,8 @@
 package com.example.youtube.adapters;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.youtube.R;
@@ -29,9 +23,6 @@ import com.example.youtube.screens.LogIn;
 import com.example.youtube.screens.VideoPlayerActivity;
 import com.google.android.material.imageview.ShapeableImageView;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoViewHolder> {

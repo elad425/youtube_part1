@@ -6,17 +6,15 @@ import com.example.youtube.screens.LogIn;
 import com.example.youtube.screens.ProfilePage;
 import com.example.youtube.screens.SearchVideo;
 import com.example.youtube.utils.JsonUtils;
-import com.example.youtube.utils.ShowListOfVideos;
+import com.example.youtube.utils.videoListUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -51,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
-        ShowListOfVideos.displayVideoList(this, lstVideos, videos, user);
+        videoListUtils.displayVideoList(this, lstVideos, videos, user);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
         btnSearch.setOnClickListener(v -> {
