@@ -9,4 +9,5 @@
     <color name="sign_up_editText_color">#FF0000</color>
     <color name="sign_up_editText_fill_color">#FFFFFF</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="sign_up_text_Color">#000000</color>
 </resources>

@@ -8,7 +8,9 @@ import com.example.youtube.utils.ShowListOfVideos;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         ShowListOfVideos.displayVideoList(this, lstVideos, videos, user);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
+
         btnSearch.setOnClickListener(v -> {
             Intent i = new Intent(this, SearchVideo.class);
             i.putParcelableArrayListExtra("video_list", videos);
@@ -55,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
         ImageButton btnCast = findViewById(R.id.cast_button);
         btnCast.setOnClickListener(v -> Toast.makeText(MainActivity.this,
                 "The app doesn't support Chromecast yet", Toast.LENGTH_SHORT).show());
+    }
+    protected void onDestroy() {
+        //todo might cause errors check in case user details gets deleted
+        super.onDestroy();
+        // Clear SharedPreferences when the app is destroyed
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
 }
