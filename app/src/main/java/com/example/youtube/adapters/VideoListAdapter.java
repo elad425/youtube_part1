@@ -3,6 +3,7 @@ package com.example.youtube.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,11 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             // Load thumbnail
             String thumbnailName = current.getThumbnail();
             int thumbnailId = mInflater.getContext().getResources().getIdentifier(thumbnailName, "drawable", mInflater.getContext().getPackageName());
-            holder.thumbnail.setImageResource(thumbnailId);
+            if (thumbnailId != 0) {
+                holder.thumbnail.setImageResource(thumbnailId);
+            } else {
+                holder.thumbnail.setImageURI(Uri.parse(thumbnailName));
+            }
             // load creator picture
             String creatorPic = current.getCreator().getProfile_pic();
             int creatorPicId = mInflater.getContext().getResources().getIdentifier(creatorPic, "drawable", mInflater.getContext().getPackageName());
@@ -112,19 +117,19 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             popup.setOnMenuItemClickListener(item -> {
                 if (user == null){
                     Intent Login = new Intent(context, LogIn.class);
-                    Toast.makeText(context, "please login in order to edit or delete videos",
+                    Toast.makeText(context, "please login in order to save for ",
                             Toast.LENGTH_SHORT).show();
                     context.startActivity(Login);
                 }
                 else {
-                    video selectedVideo = videos.get(position);
-                    if (item.getItemId() == R.id.action_edit_video) {
-                        // still need to add implementation.
-                        return true;
-                    } else if (item.getItemId() == R.id.action_delete_video) {
+                    if (item.getItemId() == R.id.action_delete_video) {
                         videos.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, videos.size());
+                        return true;
+                    } else if (item.getItemId() == R.id.action_download) {
+                        Toast.makeText(context, "sign up to youtube premium for downloading videos",
+                                Toast.LENGTH_SHORT).show();
                         return true;
                     }
                 }
@@ -133,4 +138,5 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             popup.show();
         });
     }
+
 }
