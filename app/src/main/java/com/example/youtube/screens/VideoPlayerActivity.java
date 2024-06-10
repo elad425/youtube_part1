@@ -141,6 +141,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         ImageButton btnLike = findViewById(R.id.tv_btn_like);
         ImageButton btnDislike = findViewById(R.id.tv_btn_dislike);
         ImageButton btnBack = findViewById(R.id.tv_video_back);
+        ImageButton btnEdit = findViewById(R.id.edit_video);
         Button btnSubscribe = findViewById(R.id.btn_subscribe);
 
         if (isLiked){btnLike.setImageResource(R.drawable.ic_like_fill);}
@@ -231,6 +232,10 @@ public class VideoPlayerActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(shareIntent, "Share Video"));
             }
         });
+
+        btnEdit.setOnClickListener(v -> {
+
+        });
     }
 
     private void handleBackAction() {
@@ -238,7 +243,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
         i.putParcelableArrayListExtra("video_list", videos);
         i.putExtra("user", user);
         startActivity(i);
-        finish();
     }
 
     private void toggleComments() {

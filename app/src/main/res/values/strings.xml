@@ -46,5 +46,17 @@
     <string name="upload_image">Upload Image</string>
     <string name="sign_up">Sign Up</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="login">Login</string>
+    <string name="login">Log in</string>
+    <string name="settings">settings</string>
+    <string name="guest">guest</string>
+    <string name="sign_in">sign in</string>
+    <string name="logOut">Log out</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_you_sure_you_want_to_log_out">Are you sure you want to log out?</string>
+    <string name="save_to_watch_later">save to watch later</string>
+    <string name="download">download</string>
+    <string name="upload_video">upload Video</string>
+    <string name="thumbnail_image">Thumbnail Image</string>
+    <string name="upload_thumbnail">upload Thumbnail</string>
 </resources>

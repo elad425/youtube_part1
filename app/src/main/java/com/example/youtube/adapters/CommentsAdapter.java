@@ -2,6 +2,7 @@ package com.example.youtube.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
         String userPic = currentComment.getUser().getProfile_pic();
         int creatorPicId = mInflater.getContext().getResources().getIdentifier(userPic, "drawable", mInflater.getContext().getPackageName());
-        holder.user_pic.setImageResource(creatorPicId);
+        if (creatorPicId != 0) {
+            holder.user_pic.setImageResource(creatorPicId);
+        } else {
+            holder.user_pic.setImageURI(Uri.parse(userPic));
+        }
 
         holder.tvEditComment.setOnClickListener(v -> {
             PopupMenu popup = new PopupMenu(v.getContext(), v);
