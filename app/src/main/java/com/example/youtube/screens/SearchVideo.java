@@ -32,36 +32,56 @@ public class SearchVideo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_video);
 
+        setupWindow();
+        initializeData();
+        setupUI();
+        setupSearchView();
+    }
+
+    private void setupWindow() {
         Window window = getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
+    }
 
+    private void initializeData() {
         Intent intent = getIntent();
-        ArrayList<video> temp = intent.getParcelableArrayListExtra("video_list");
-        if (temp != null) {
-            videos = temp;
-        } else {
+        videos = intent.getParcelableArrayListExtra("video_list");
+        if (videos == null) {
             videos = JsonUtils.loadVideosFromJson(this);
         }
-
-        user user = intent.getParcelableExtra("user");
-        SearchView searchView = findViewById(R.id.search_view);
         filteredList = new ArrayList<>();
-        searchAdapter = new SearchAdapter(videos,filteredList, this, user);
+    }
 
+    private void setupUI() {
+        user user = getIntent().getParcelableExtra("user");
+        setupRecyclerView(user);
+        setupBackButton();
+        setupBackPressedDispatcher();
+    }
+
+    private void setupRecyclerView(user user) {
+        searchAdapter = new SearchAdapter(videos, filteredList, this, user);
         RecyclerView rvSearch = findViewById(R.id.rv_search);
         rvSearch.setLayoutManager(new LinearLayoutManager(this));
         rvSearch.setAdapter(searchAdapter);
+    }
 
+    private void setupBackButton() {
         ImageButton btnBack = findViewById(R.id.search_back);
         btnBack.setOnClickListener(v -> handleBackAction());
+    }
 
+    private void setupBackPressedDispatcher() {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 handleBackAction();
             }
         });
+    }
 
+    private void setupSearchView() {
+        SearchView searchView = findViewById(R.id.search_view);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -77,17 +97,18 @@ public class SearchVideo extends AppCompatActivity {
     }
 
     private void handleBackAction() {
-        Intent i = new Intent(this, MainActivity.class);
-        i.putParcelableArrayListExtra("video_list", videos);
-        startActivity(i);
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putParcelableArrayListExtra("video_list", videos);
+        startActivity(intent);
     }
 
     private void filterVideos(String query) {
         filteredList.clear();
-        for (video video : videos) {
-            if (video.getVideo_name().toLowerCase().startsWith(query.toLowerCase())
-                    && !query.isEmpty()) {
-                filteredList.add(video);
+        if (!query.isEmpty()) {
+            for (video video : videos) {
+                if (video.getVideo_name().toLowerCase().startsWith(query.toLowerCase())) {
+                    filteredList.add(video);
+                }
             }
         }
         searchAdapter.setFilteredList(filteredList);

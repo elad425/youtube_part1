@@ -63,7 +63,6 @@
     <string name="login_password">Password</string>
     <string name="dont_have_an_account">Dont have an account?</string>
     <string name="login_to_sign_up">Sign up!</string>
-    <string name="login">Log in</string>
     <string name="settings">settings</string>
     <string name="guest">guest</string>
     <string name="sign_in">sign in</string>
@@ -76,4 +75,8 @@
     <string name="upload_video">upload Video</string>
     <string name="thumbnail_image">Thumbnail Image</string>
     <string name="upload_thumbnail">upload Thumbnail</string>
+    <string name="enter_video_title">Enter video title</string>
+    <string name="submit">submit</string>
+    <string name="video_thumbnail">Video Thumbnail</string>
+    <string name="add_thumbnail">Add Thumbnail</string>
 </resources>
