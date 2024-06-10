@@ -135,7 +135,7 @@ public class user implements Parcelable {
     }
 
     public void removeFromSubs(creator creator){
-        this.subs.remove(creator);
+        subs.removeIf(c -> Objects.equals(c.getName(), creator.getName()));
     }
 
     public boolean isLiked(video video){
