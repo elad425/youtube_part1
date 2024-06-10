@@ -10,8 +10,10 @@ import android.provider.MediaStore;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,7 +33,9 @@ public class AddVideoActivity extends AppCompatActivity {
     private static final int PICK_THUMBNAIL_REQUEST  = 2;
     private EditText videoNameEditText;
     private ImageView thumbnailImageView;
-    private TextView videoPathTextView;
+    private TextView thumbnailPlaceholder;
+    private VideoView videoVideoView;
+    private TextView videoPlaceholder;
     private Uri videoUri, thumbnailUri;
     private ArrayList<video> videos;
     private user user;
@@ -51,17 +55,17 @@ public class AddVideoActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
         }
 
-        videoNameEditText = findViewById(R.id.video_name);
-        thumbnailImageView = findViewById(R.id.thumbnail_image);
-        videoPathTextView = findViewById(R.id.video_path);
+        videoNameEditText = findViewById(R.id.et_video_title);
+        thumbnailImageView = findViewById(R.id.iv_thumbnail);
+        videoVideoView = findViewById(R.id.vv_video);
+        videoPlaceholder = findViewById(R.id.tv_add_video);
+        thumbnailPlaceholder = findViewById(R.id.tv_add_thumbnail);
 
-        Button chooseVideoButton = findViewById(R.id.choose_video_button);
-        chooseVideoButton.setOnClickListener(v -> selectVideo());
+        videoVideoView.setOnClickListener(v -> selectVideo());
 
-        Button chooseThumbnailButton = findViewById(R.id.choose_thumbnail_button);
-        chooseThumbnailButton.setOnClickListener(v -> selectThumbnail());
+        thumbnailImageView.setOnClickListener(v -> selectThumbnail());
 
-        Button addVideoButton = findViewById(R.id.add_video_button);
+        Button addVideoButton = findViewById(R.id.btn_add_video);
         addVideoButton.setOnClickListener(v -> addVideo());
 
         videos = getIntent().getParcelableArrayListExtra("videos");
@@ -108,18 +112,25 @@ public class AddVideoActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && data != null) {
             if (requestCode == PICK_VIDEO_REQUEST) {
                 videoUri = data.getData();
-                assert videoUri != null;
-                videoPathTextView.setText(videoUri.getPath());
+                playVideoSample();
             } else if (requestCode == PICK_THUMBNAIL_REQUEST) {
                 thumbnailUri = data.getData();
-                try {
-                    Bitmap thumbnailBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), thumbnailUri);
-                    thumbnailImageView.setImageBitmap(thumbnailBitmap);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                displayThumbnailSample();
             }
         }
+    }
+
+    private void displayThumbnailSample(){
+        thumbnailImageView.setImageURI(thumbnailUri);
+        thumbnailPlaceholder.setText("");
+        thumbnailPlaceholder.setBackgroundColor(0x00FFFFFF);
+    }
+
+    private void playVideoSample(){
+        videoVideoView.setVideoURI(videoUri);
+        videoPlaceholder.setText("");
+        videoPlaceholder.setBackgroundColor(0x00FFFFFF);
+        videoVideoView.start();
     }
 
     private void addVideo() {
