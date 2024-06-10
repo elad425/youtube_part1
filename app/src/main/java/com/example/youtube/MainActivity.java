@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         videoListUtils.displayVideoList(this, lstVideos, videos, user);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
+
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
+
         btnSearch.setOnClickListener(v -> {
             Intent i = new Intent(this, SearchVideo.class);
             i.putParcelableArrayListExtra("video_list", videos);
@@ -88,6 +93,15 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+    protected void onDestroy() {
+        //todo might cause errors check in case user details gets deleted
+        super.onDestroy();
+        // Clear SharedPreferences when the app is destroyed
+        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
 }
