@@ -51,6 +51,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private CommentsAdapter commentsAdapter;
     private ArrayList<comment> commentList;
     private ArrayList<video> videos;
+    private ArrayList<user> users;
     private int videoPosition;
     private user user;
     private video videoItem;
@@ -80,6 +81,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         videoItem = intent.getParcelableExtra("video_item");
         videos = intent.getParcelableArrayListExtra("video_list");
         user = intent.getParcelableExtra("user");
+        users = intent.getParcelableArrayListExtra("users");
 
         if (user != null) {
             isLiked = user.isLiked(videoItem);
@@ -89,7 +91,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         if (videoItem != null && videos != null) {
             videoPosition = findVideoPlace(videos, videoItem);
-            videoListUtils.displayVideoList(this, lstVideos, videos, user, videoItem);
+            videoListUtils.displayVideoList(this, lstVideos, videos, user, videoItem, users);
         }
     }
 
@@ -144,7 +146,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         tvComments.setOnClickListener(v -> toggleComments());
 
         rvComments.setLayoutManager(new LinearLayoutManager(this));
-        commentsAdapter = new CommentsAdapter(commentList, this, user, this, videos);
+        commentsAdapter = new CommentsAdapter(commentList, this, user, this, videos, users);
         rvComments.setAdapter(commentsAdapter);
 
         fabAddComment.setOnClickListener(v -> {
@@ -160,6 +162,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void goToLogIn(){
         Intent intent = new Intent(this, LogIn.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         startActivity(intent);
     }
 
@@ -208,6 +211,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void handleBackAction() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         intent.putExtra("user", user);
         startActivity(intent);
     }

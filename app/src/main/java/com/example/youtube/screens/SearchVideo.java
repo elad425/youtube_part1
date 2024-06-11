@@ -26,6 +26,7 @@ public class SearchVideo extends AppCompatActivity {
     private ArrayList<video> filteredList;
     private SearchAdapter searchAdapter;
     private ArrayList<video> videos;
+    private ArrayList<user> users;
     private user user;
 
     @Override
@@ -47,6 +48,7 @@ public class SearchVideo extends AppCompatActivity {
     private void initializeData() {
         Intent intent = getIntent();
         videos = intent.getParcelableArrayListExtra("video_list");
+        users = intent.getParcelableArrayListExtra("users");
         if (videos == null) {
             videos = JsonUtils.loadVideosFromJson(this);
         }
@@ -61,7 +63,7 @@ public class SearchVideo extends AppCompatActivity {
     }
 
     private void setupRecyclerView(user user) {
-        searchAdapter = new SearchAdapter(videos, filteredList, this, user);
+        searchAdapter = new SearchAdapter(videos, filteredList, this, user, users);
         RecyclerView rvSearch = findViewById(R.id.rv_search);
         rvSearch.setLayoutManager(new LinearLayoutManager(this));
         rvSearch.setAdapter(searchAdapter);
@@ -100,6 +102,7 @@ public class SearchVideo extends AppCompatActivity {
     private void handleBackAction() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         intent.putExtra("user", user);
         startActivity(intent);
     }

@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.youtube.R;
+import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Uri imageUri;
     private Bitmap selectedImageBitmap;
     private ArrayList<video> videos;
+    private ArrayList<user> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         Intent intent = new Intent();
         videos = intent.getParcelableArrayListExtra("video_list");
+        users = intent.getParcelableArrayListExtra("users");
 
         uploadButton.setOnClickListener(v -> openFileChooser());
         signUpButton.setOnClickListener(v -> signUp());
@@ -73,6 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
         resetFields();
         Intent intent = new Intent(SignUpActivity.this, LogIn.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         startActivity(intent);
     }
 
