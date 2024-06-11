@@ -144,17 +144,23 @@ public class VideoPlayerActivity extends AppCompatActivity {
         tvComments.setOnClickListener(v -> toggleComments());
 
         rvComments.setLayoutManager(new LinearLayoutManager(this));
-        commentsAdapter = new CommentsAdapter(commentList, this, user, this);
+        commentsAdapter = new CommentsAdapter(commentList, this, user, this, videos);
         rvComments.setAdapter(commentsAdapter);
 
         fabAddComment.setOnClickListener(v -> {
             if (user == null) {
                 Toast.makeText(this, "please login in order to add a comment", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, LogIn.class));
+                goToLogIn();
             } else {
                 showAddCommentDialog();
             }
         });
+    }
+
+    private void goToLogIn(){
+        Intent intent = new Intent(this, LogIn.class);
+        intent.putParcelableArrayListExtra("video_list", videos);
+        startActivity(intent);
     }
 
     private void handleActionButtons() {
@@ -273,8 +279,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     private void showEditVideoDialog() {
         if (user == null) {
-            startActivity(new Intent(this, LogIn.class));
             Toast.makeText(this, "please login in order to edit a video", Toast.LENGTH_SHORT).show();
+            goToLogIn();
             return;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -352,7 +358,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void handleLikeAction(ImageButton btnLike, ImageButton btnDislike) {
         if (user == null) {
             Toast.makeText(this, "please login in order to like", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, LogIn.class));
+            goToLogIn();
             return;
         }
 
@@ -374,8 +380,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
     private void handleDislikeAction(ImageButton btnLike, ImageButton btnDislike) {
         if (user == null) {
-            startActivity(new Intent(this, LogIn.class));
             Toast.makeText(this, "please login in order to dislike", Toast.LENGTH_SHORT).show();
+            goToLogIn();
             return;
         }
 
@@ -398,7 +404,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private void handleSubscribeAction(Button btnSubscribe) {
         if (user == null) {
             Toast.makeText(this, "please login in order to subscribe", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, LogIn.class));
+            goToLogIn();
             return;
         }
 

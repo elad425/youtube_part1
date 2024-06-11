@@ -4,40 +4,37 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.util.Patterns;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.youtube.R;
-import com.example.youtube.entities.user;
+import com.example.youtube.entities.video;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
-
     private TextInputLayout usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     private Button uploadButton, signUpButton,loginButton;
     private Uri imageUri;
     private Bitmap selectedImageBitmap;
+    private ArrayList<video> videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +51,9 @@ public class SignUpActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.sign_up_login_button);
         //profileImageView = findViewById(R.id.profile_image);
 
+        Intent intent = new Intent();
+        videos = intent.getParcelableArrayListExtra("video_list");
+
         uploadButton.setOnClickListener(v -> openFileChooser());
         signUpButton.setOnClickListener(v -> signUp());
         loginButton.setOnClickListener(v->login());
@@ -66,21 +66,16 @@ public class SignUpActivity extends AppCompatActivity {
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setAction(Intent.ACTION_PICK);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
     private void login(){
         resetFields();
         Intent intent = new Intent(SignUpActivity.this, LogIn.class);
+        intent.putParcelableArrayListExtra("video_list", videos);
         startActivity(intent);
     }
-//    private void login(String username,String email,String password,String image){
-//        resetFields();
-//        Intent intent = new Intent(SignUpActivity.this, LogIn.class);
-//        user new_user = new user(username,email,password,image);
-//        intent.putExtra("user",new_user);
-//        startActivity(intent);
-//    }
+
     private void resetFields() {
         usernameEditText.getEditText().setText("");
         emailEditText.getEditText().setText("");

@@ -94,8 +94,7 @@ public class ProfilePage extends AppCompatActivity {
 
         btnLogIn.setText(R.string.login);
         btnLogIn.setOnClickListener(v -> {
-            Intent i = new Intent(this, LogIn.class);
-            startActivity(i);
+            goToLogIn();
         });
     }
 
@@ -152,8 +151,7 @@ public class ProfilePage extends AppCompatActivity {
             startActivity(intent);
         } else {
             Toast.makeText(ProfilePage.this, "Please log in to add a video", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(ProfilePage.this, LogIn.class);
-            startActivity(intent);
+            goToLogIn();
         }
     }
 
@@ -176,6 +174,12 @@ public class ProfilePage extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
         intent.putExtra("user", user);
+        startActivity(intent);
+    }
+
+    private void goToLogIn(){
+        Intent intent = new Intent(this, LogIn.class);
+        intent.putParcelableArrayListExtra("video_list", videos);
         startActivity(intent);
     }
 }

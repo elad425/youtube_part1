@@ -117,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             Toast.makeText(MainActivity.this, "Please log in to add a video", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, LogIn.class);
+            Intent intent = new Intent(this, LogIn.class);
+            intent.putParcelableArrayListExtra("video_list", videos);
             startActivity(intent);
         }
     }
