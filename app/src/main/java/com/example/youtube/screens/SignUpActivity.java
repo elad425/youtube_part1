@@ -23,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.youtube.R;
+import com.example.youtube.entities.user;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -73,6 +74,13 @@ public class SignUpActivity extends AppCompatActivity {
         Intent intent = new Intent(SignUpActivity.this, LogIn.class);
         startActivity(intent);
     }
+//    private void login(String username,String email,String password,String image){
+//        resetFields();
+//        Intent intent = new Intent(SignUpActivity.this, LogIn.class);
+//        user new_user = new user(username,email,password,image);
+//        intent.putExtra("user",new_user);
+//        startActivity(intent);
+//    }
     private void resetFields() {
         usernameEditText.getEditText().setText("");
         emailEditText.getEditText().setText("");
@@ -145,7 +153,7 @@ public class SignUpActivity extends AppCompatActivity {
         editor.putString("username", username);
         editor.putString("email", email);
         editor.putString("password", password);
-        editor.putString("image", encodedImage);
+        editor.putString("image", imageUri.toString());
         editor.apply();
 
         Toast.makeText(this, "Sign-up successful", Toast.LENGTH_SHORT).show();

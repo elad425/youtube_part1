@@ -220,6 +220,7 @@
                 android:id="@+id/sign_up_upload_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/custom_red_btn"
                 android:drawableEnd="@drawable/upload_icon"
                 android:drawablePadding="10dp"
