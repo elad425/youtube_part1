@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -37,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         setupWindow();
 
         if (checkPermissions()) {
+            setContentView(R.layout.activity_main);
             initializeData();
             setupUI();
             setupBottomNavigation();
+            handleBackButton();
         } else {
             requestPermissions();
         }
@@ -182,5 +183,18 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
+    }
+
+    private void handleBackButton() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleBackAction();
+            }
+        });
+    }
+
+    private void handleBackAction() {
+
     }
 }

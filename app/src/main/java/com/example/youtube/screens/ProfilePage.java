@@ -1,5 +1,6 @@
 package com.example.youtube.screens;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -39,6 +40,7 @@ public class ProfilePage extends AppCompatActivity {
         initializeData();
         setupUI();
         setupBottomNavigation();
+        handleBackButton();
     }
 
     private void setupWindow() {
@@ -159,5 +161,21 @@ public class ProfilePage extends AppCompatActivity {
         user = null;
         Toast.makeText(this, "You logged out", Toast.LENGTH_SHORT).show();
         navigateToHome();
+    }
+
+    private void handleBackButton() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleBackAction();
+            }
+        });
+    }
+
+    private void handleBackAction() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 }

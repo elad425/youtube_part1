@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -46,6 +47,7 @@ public class AddVideoActivity extends AppCompatActivity {
         setupWindow();
         initializeUI();
         setupBottomNavigation();
+        handleBackButton();
     }
 
     private void setupWindow() {
@@ -159,5 +161,21 @@ public class AddVideoActivity extends AppCompatActivity {
 
         navigateToMainActivity();
         finish();
+    }
+
+    private void handleBackButton() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                handleBackAction();
+            }
+        });
+    }
+
+    private void handleBackAction() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 }
