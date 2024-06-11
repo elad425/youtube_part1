@@ -42,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
         }else {
             videos = JsonUtils.loadVideosFromJson(this);
         }
+
         user= intent.getParcelableExtra("user");
 
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
-        videoListUtils.displayVideoList(this, lstVideos, videos, user);
+        videoListUtils.displayVideoList(this, lstVideos, videos, user,null);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
 

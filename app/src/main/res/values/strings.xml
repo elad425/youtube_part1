@@ -75,4 +75,11 @@
     <string name="upload_video">upload Video</string>
     <string name="thumbnail_image">Thumbnail Image</string>
     <string name="upload_thumbnail">upload Thumbnail</string>
+    <string name="enter_video_title">Enter video title</string>
+    <string name="submit">submit</string>
+    <string name="video_thumbnail">Video Thumbnail</string>
+    <string name="add_thumbnail">Add Thumbnail</string>
+    <string name="about">about</string>
+    <string name="app_info">Welcome to YouTube Clone, your ultimate destination for streaming, discovering, and enjoying videos across various genres and interests. Our app is designed to offer an exceptional user experience with a sleek and intuitive interface, making it easy to find and watch your favorite videos.\n \n How to Use:\n \n 1. Browse and Discover: Navigate through different sections using the bottom navigation bar to explore a wide range of videos.\n 2 .Search and Watch: Use the search function to find specific videos or channels. Click on any video to start watching.\n 3 .Interact and Engage: Like, comment, and share videos to connect with other users and support your favorite content creators.\n 4 .Manage Your Profile: Click on your profile picture in the bottom navigation bar to access and customize your profile, view your playlists, and manage your uploaded videos.\n \n Our Mission:\n \n At YouTube Clone, we are committed to creating a platform that not only entertains but also connects people through the power of video. We continuously work on improving our app to provide a better user experience and to introduce new features that meet your needs.\n \n Thank you for choosing YouTube Clone. Enjoy your streaming experience!</string>
+    <string name="youtube_clone_info">Youtube clone info</string>
 </resources>
