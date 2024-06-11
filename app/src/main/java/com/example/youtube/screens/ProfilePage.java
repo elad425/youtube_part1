@@ -3,11 +3,16 @@ package com.example.youtube.screens;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +60,8 @@ public class ProfilePage extends AppCompatActivity {
         TextView username = findViewById(R.id.username);
         TextView userEmail = findViewById(R.id.user_email);
         ShapeableImageView userPic = findViewById(R.id.user_pic);
+        ImageButton btnSettings = findViewById(R.id.settings);
+        btnSettings.setOnClickListener(this::displaySettings);
 
         if (user != null) {
             displayUserInfo(username, userEmail, userPic, btnLogIn);
@@ -90,6 +97,29 @@ public class ProfilePage extends AppCompatActivity {
         });
     }
 
+    private void displaySettings(View v){
+        PopupMenu popup = new PopupMenu(v.getContext(), v);
+        popup.getMenuInflater().inflate(R.menu.settings_menu, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.about) {
+                showAboutDialog();
+                return true;
+            }
+            return false;
+        });
+
+        popup.show();
+    }
+
+    private void showAboutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogLayout = inflater.inflate(R.layout.dialog_about, null);
+        builder.setView(dialogLayout);
+        builder.show();
+    }
+
     private void setupBottomNavigation() {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setSelectedItemId(R.id.navigation_profile);
@@ -97,8 +127,7 @@ public class ProfilePage extends AppCompatActivity {
             if (item.getItemId() == R.id.navigation_home) {
                 navigateToHome();
                 return true;
-            }
-            else if (item.getItemId() == R.id.navigation_add_video) {
+            } else if (item.getItemId() == R.id.navigation_add_video) {
                 navigateToAddVideo();
                 return true;
             }
