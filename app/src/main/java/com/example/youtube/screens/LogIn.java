@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,18 +44,28 @@ public class LogIn extends AppCompatActivity {
         loginButton = findViewById(R.id.login_login_button);
         loginLogo = findViewById(R.id.login_logo);
         signUpButton = findViewById(R.id.login_to_signup_button);
-        Intent intent = new Intent();
+
+        Intent intent = getIntent();
         videos = intent.getParcelableArrayListExtra("video_list");
         users = intent.getParcelableArrayListExtra("users");
+        if (users!=null){
+            user user =users.get(0);
+            Log.d("my shit",user.getEmail());
+        }
+        if (users==null){
+            Log.d("my shit","woww");
+        }
         emailEditText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 emailEditText.setError(null); // Clear error when user starts typing
                 emailEditText.setErrorEnabled(false);
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -63,7 +74,6 @@ public class LogIn extends AppCompatActivity {
         passwordEditText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed before text changed
             }
 
             @Override
@@ -74,54 +84,58 @@ public class LogIn extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                // No action needed after text changed
             }
         });
 
         loginButton.setOnClickListener(v -> login());
-        signUpButton.setOnClickListener(v->signUp());
+        signUpButton.setOnClickListener(v -> signUp());
     }
 
-    private void signUp(){
+    private void signUp() {
         Intent intent = new Intent(LogIn.this, SignUpActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
         intent.putParcelableArrayListExtra("users", users);
         resetFields();
         startActivity(intent);
     }
+
     private void login() {
         String email = emailEditText.getEditText().getText().toString().trim();
         String password = passwordEditText.getEditText().getText().toString().trim();
 
         if (password.isEmpty()) {
             passwordEditText.setError("Please enter a password");
+            return;
         }
         if (email.isEmpty()) {
             emailEditText.setError("Please enter an email");
+            return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEditText.setError("Please enter a valid email address");
+            return;
+        }
+        if (users==null){
+            Log.d("my shit","in func");
+            return;
+        }
+        // Check if the email and password match any user in the users list
+        for (user u : users) {
+            if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LogIn.this, MainActivity.class);
+                intent.putExtra("user", u);
+                intent.putParcelableArrayListExtra("video_list", videos);
+                intent.putParcelableArrayListExtra("users", users);
+                resetFields();
+                startActivity(intent);
+                finish();
+                return;
+            }
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
-        String savedEmail = sharedPreferences.getString("email", null);
-        String savedPassword = sharedPreferences.getString("password", null);
-        String savedUsername = sharedPreferences.getString("username",null);
-        String savedImage = sharedPreferences.getString("image",null);
-
-        if (email.equals(savedEmail) && password.equals(savedPassword)) {
-            Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(LogIn.this, MainActivity.class);
-            user new_user = new user(savedUsername,savedEmail,savedPassword,savedImage);
-            intent.putExtra("user",new_user);
-            intent.putParcelableArrayListExtra("video_list", videos);
-            intent.putParcelableArrayListExtra("users", users);
-            resetFields();
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-        }
+        // If no match is found, show an error message
+        Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
     }
 
     private Bitmap decodeBase64ToBitmap(String encodedImage) {

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:paddingEnd="30dp"
     android:paddingStart="30dp"
-    android:background="@color/background_color"
     tools:context=".MainActivity">
     <ImageView
         android:id="@+id/login_logo"

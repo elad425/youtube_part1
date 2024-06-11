@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 
@@ -53,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.sign_up_login_button);
         //profileImageView = findViewById(R.id.profile_image);
 
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         videos = intent.getParcelableArrayListExtra("video_list");
         users = intent.getParcelableArrayListExtra("users");
 
@@ -144,16 +145,22 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        String encodedImage = encodeImageToBase64(selectedImageBitmap);
-
+        user new_user = new user(username,email,password,imageUri.toString());
+        if (users==null){
+            users=new ArrayList<>();
+        }
+        else {
+            Log.d("my shit",users.get(0).getEmail());
+        }
+        users.add(new_user);
         // Proceed with sign-up logic (e.g., send data to server)
-        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("username", username);
-        editor.putString("email", email);
-        editor.putString("password", password);
-        editor.putString("image", imageUri.toString());
-        editor.apply();
+//        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putString("username", username);
+//        editor.putString("email", email);
+//        editor.putString("password", password);
+//        editor.putString("image", imageUri.toString());
+//        editor.apply();
 
         Toast.makeText(this, "Sign-up successful", Toast.LENGTH_SHORT).show();
         login();
