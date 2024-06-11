@@ -262,8 +262,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
             String editedCommentText = input.getText().toString().trim();
             if (!editedCommentText.isEmpty()) {
                 commentList.get(position).setComment(editedCommentText);
-                commentList.get(position).setDate("now");
-                commentList.get(position).setUser(user);
+                commentList.get(position).setDate("now (edited)");
                 videos.get(videoPosition).setComments(commentList);
                 commentsAdapter.notifyDataSetChanged();
             }

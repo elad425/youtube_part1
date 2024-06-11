@@ -26,6 +26,7 @@ public class SearchVideo extends AppCompatActivity {
     private ArrayList<video> filteredList;
     private SearchAdapter searchAdapter;
     private ArrayList<video> videos;
+    private user user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class SearchVideo extends AppCompatActivity {
     }
 
     private void setupUI() {
-        user user = getIntent().getParcelableExtra("user");
+        user = getIntent().getParcelableExtra("user");
         setupRecyclerView(user);
         setupBackButton();
         setupBackPressedDispatcher();
@@ -99,6 +100,7 @@ public class SearchVideo extends AppCompatActivity {
     private void handleBackAction() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

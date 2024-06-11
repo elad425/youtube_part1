@@ -2,6 +2,7 @@ package com.example.youtube.entities;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -11,11 +12,12 @@ import java.util.Objects;
 public class user implements Parcelable {
     private String name;
     private String email;
-    private  String password;
+    private String password;
     private String profile_pic;
-    private ArrayList<video> likedVideos;
-    private ArrayList<video> dislikedVideos;
+    private ArrayList<String> likedVideos;
+    private ArrayList<String> dislikedVideos;
     private ArrayList<creator> subs;
+
     public user(String name, String email, String password, String profile_pic) {
         this.name = name;
         this.email = email;
@@ -31,8 +33,8 @@ public class user implements Parcelable {
         email = in.readString();
         password = in.readString();
         profile_pic = in.readString();
-        likedVideos = in.createTypedArrayList(video.CREATOR);
-        dislikedVideos = in.createTypedArrayList(video.CREATOR);
+        likedVideos = in.createStringArrayList();
+        dislikedVideos = in.createStringArrayList();
         subs = in.createTypedArrayList(creator.CREATOR);
     }
 
@@ -80,19 +82,19 @@ public class user implements Parcelable {
         this.profile_pic = profile_pic;
     }
 
-    public ArrayList<video> getLikedVideos() {
+    public ArrayList<String> getLikedVideos() {
         return likedVideos;
     }
 
-    public void setLikedVideos(ArrayList<video> likedVideos) {
+    public void setLikedVideos(ArrayList<String> likedVideos) {
         this.likedVideos = likedVideos;
     }
 
-    public ArrayList<video> getDislikedVideos() {
+    public ArrayList<String> getDislikedVideos() {
         return dislikedVideos;
     }
 
-    public void setDislikedVideos(ArrayList<video> dislikedVideos) {
+    public void setDislikedVideos(ArrayList<String> dislikedVideos) {
         this.dislikedVideos = dislikedVideos;
     }
 
@@ -104,61 +106,61 @@ public class user implements Parcelable {
         this.subs = subs;
     }
 
-    public void addToLiked(video video){
-        for (video v : likedVideos){
-            if (Objects.equals(v.getVideo_name(), video.getVideo_name())){
+    public void addToLiked(video video) {
+        for (String s : likedVideos) {
+            if (s.equals(video.getVideo_name())) {
                 return;
             }
         }
-        this.likedVideos.add(video);
+        this.likedVideos.add(video.getVideo_name());
     }
 
-    public void removeFromLiked(video video){
-        likedVideos.removeIf(v -> Objects.equals(v.getVideo_name(), video.getVideo_name()));
+    public void removeFromLiked(video video) {
+        likedVideos.removeIf(s -> s.equals(video.getVideo_name()));
     }
 
-    public void addToDisLiked(video video){
-        for (video v : dislikedVideos){
-            if (Objects.equals(v.getVideo_name(), video.getVideo_name())){
+    public void addToDisLiked(video video) {
+        for (String s : dislikedVideos) {
+            if (s.equals(video.getVideo_name())) {
                 return;
             }
         }
-        this.dislikedVideos.add(video);
+        this.dislikedVideos.add(video.getVideo_name());
     }
 
-    public void removeFromDisLiked(video video){
-        dislikedVideos.removeIf(v -> Objects.equals(v.getVideo_name(), video.getVideo_name()));
+    public void removeFromDisLiked(video video) {
+        dislikedVideos.removeIf(s -> s.equals(video.getVideo_name()));
     }
 
-    public void addToSubs(creator creator){
+    public void addToSubs(creator creator) {
         this.subs.add(creator);
     }
 
-    public void removeFromSubs(creator creator){
+    public void removeFromSubs(creator creator) {
         subs.removeIf(c -> Objects.equals(c.getName(), creator.getName()));
     }
 
-    public boolean isLiked(video video){
-        for (video v : likedVideos){
-            if (Objects.equals(v.getVideo_name(), video.getVideo_name())){
+    public boolean isLiked(video video) {
+        for (String s : likedVideos) {
+            if (s.equals(video.getVideo_name())) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isDisLiked(video video){
-        for (video v : dislikedVideos){
-            if (Objects.equals(v.getVideo_name(), video.getVideo_name())){
+    public boolean isDisLiked(video video) {
+        for (String s : dislikedVideos) {
+            if (s.equals(video.getVideo_name())) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean isSubs(creator creator){
-        for (creator c : subs){
-            if (Objects.equals(c.getName(), creator.getName())){
+    public boolean isSubs(creator creator) {
+        for (creator c : subs) {
+            if (Objects.equals(c.getName(), creator.getName())) {
                 return true;
             }
         }
@@ -176,8 +178,8 @@ public class user implements Parcelable {
         dest.writeString(email);
         dest.writeString(password);
         dest.writeString(profile_pic);
-        dest.writeTypedList(likedVideos);
-        dest.writeTypedList(dislikedVideos);
+        dest.writeStringList(likedVideos);
+        dest.writeStringList(dislikedVideos);
         dest.writeTypedList(subs);
     }
 }

@@ -9,7 +9,9 @@
         android:id="@+id/input_video_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Video Name" />
+        android:hint="@string/video_name"
+        android:autofillHints="name"
+        android:inputType="text"/>
 
     <Button
         android:id="@+id/btn_select_thumbnail"
@@ -18,7 +20,7 @@
         android:backgroundTint="@color/red"
         android:textColor="@color/white"
         android:layout_marginTop="25dp"
-        android:text="Select Thumbnail" />
+        android:text="@string/select_thumbnail" />
 
     <Button
         android:id="@+id/btn_select_video"
@@ -27,5 +29,5 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/red"
         android:textColor="@color/white"
-        android:text="Select Video" />
+        android:text="@string/select_video" />
 </LinearLayout>
