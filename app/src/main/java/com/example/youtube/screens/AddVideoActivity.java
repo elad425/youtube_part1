@@ -1,9 +1,7 @@
 package com.example.youtube.screens;
 
-import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Button;
@@ -46,7 +44,6 @@ public class AddVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_video);
 
         setupWindow();
-        requestPermissions();
         initializeUI();
         setupBottomNavigation();
     }
@@ -54,17 +51,6 @@ public class AddVideoActivity extends AppCompatActivity {
     private void setupWindow() {
         Window window = getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
-    }
-
-    private void requestPermissions() {
-        if (Build.VERSION.SDK_INT >= 33) {
-            requestPermissions(new String[]{
-                    Manifest.permission.READ_MEDIA_VIDEO,
-                    Manifest.permission.READ_MEDIA_IMAGES,
-            }, 1);
-        } else {
-            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-        }
     }
 
     private void initializeUI() {
