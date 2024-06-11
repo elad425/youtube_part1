@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="30dp">
 
     <EditText
         android:id="@+id/input_video_name"
@@ -15,11 +15,17 @@
         android:id="@+id/btn_select_thumbnail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
+        android:layout_marginTop="25dp"
         android:text="Select Thumbnail" />
 
     <Button
         android:id="@+id/btn_select_video"
         android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/red"
+        android:textColor="@color/white"
         android:text="Select Video" />
 </LinearLayout>
