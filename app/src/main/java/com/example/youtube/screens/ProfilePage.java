@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -47,7 +48,12 @@ public class ProfilePage extends AppCompatActivity {
             user_email.setText(user.getEmail());
             String creator_pic = user.getProfile_pic();
             int creatorPicId = getResources().getIdentifier(creator_pic, "drawable",getPackageName());
-            user_pic.setImageResource(creatorPicId);
+            if (creatorPicId!=0){
+                user_pic.setImageResource(creatorPicId);
+            }
+            else{
+                user_pic.setImageURI(Uri.parse(creator_pic));
+            }
 
             btnLogIn.setText(R.string.logOut);
             btnLogIn.setOnClickListener(v -> onConfirmClick());

@@ -42,20 +42,13 @@ public class MainActivity extends AppCompatActivity {
         }else {
             videos = JsonUtils.loadVideosFromJson(this);
         }
-
-        user tempUser = intent.getParcelableExtra("user");
-        if (tempUser != null){
-            user = tempUser;
-        }else {
-            user = new user("elad cohen", "eladcohen@gmail.com", "12345678", "thumbnail5");
-        }
+        user= intent.getParcelableExtra("user");
 
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
         videoListUtils.displayVideoList(this, lstVideos, videos, user);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
 
         btnSearch.setOnClickListener(v -> {
             Intent i = new Intent(this, SearchVideo.class);

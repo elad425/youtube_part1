@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
+import com.example.youtube.entities.user;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class LogIn extends AppCompatActivity {
@@ -97,6 +98,8 @@ public class LogIn extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
         String savedEmail = sharedPreferences.getString("email", null);
         String savedPassword = sharedPreferences.getString("password", null);
+        String savedUsername = sharedPreferences.getString("username",null);
+        String savedImage = sharedPreferences.getString("image",null);
 //        String encodedImage = sharedPreferences.getString("image", null);
 //        if (encodedImage != null) {
 //            Bitmap decodedImage = decodeBase64ToBitmap(encodedImage);
@@ -106,6 +109,8 @@ public class LogIn extends AppCompatActivity {
         if (email.equals(savedEmail) && password.equals(savedPassword)) {
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LogIn.this, MainActivity.class);
+            user new_user = new user(savedUsername,savedEmail,savedPassword,savedImage);
+            intent.putExtra("user",new_user);
             resetFields();
             startActivity(intent);
             finish();
