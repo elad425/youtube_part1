@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.VideoViewHolder> {
     private final LayoutInflater mInflater;
     private ArrayList<video> videos;
+    private ArrayList<user> users;
     private ArrayList<video> filteredVideos;
     private final Context context;
     private final user user;
@@ -56,8 +57,9 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setVideos(ArrayList<video> v) {
+    public void setVideos(ArrayList<video> v, ArrayList<user> u) {
         videos = v;
+        users = u;
         filteredVideos = new ArrayList<>(v);
         notifyDataSetChanged();
     }
@@ -113,7 +115,8 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             Intent i = new Intent(mInflater.getContext(), VideoPlayerActivity.class);
             i.putExtra("video_item", clickedVideoItem);
             i.putExtra("user", user);
-            i.putParcelableArrayListExtra("video_list", new ArrayList<>(videos)); // Pass original list
+            i.putParcelableArrayListExtra("video_list", new ArrayList<>(videos));
+            i.putParcelableArrayListExtra("users", users);
             mInflater.getContext().startActivity(i);
         });
 
@@ -126,6 +129,7 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
                     Toast.makeText(context, "please login in order to download or delete a video", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LogIn.class);
                     intent.putParcelableArrayListExtra("video_list", videos);
+                    intent.putParcelableArrayListExtra("users", users);
                     context.startActivity(intent);
                 } else {
                     if (item.getItemId() == R.id.action_delete_video) {

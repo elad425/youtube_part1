@@ -37,6 +37,7 @@ public class AddVideoActivity extends AppCompatActivity {
     private TextView videoPlaceholder;
     private Uri videoUri, thumbnailUri;
     private ArrayList<video> videos;
+    private ArrayList<user> users;
     private user user;
 
     @Override
@@ -69,6 +70,7 @@ public class AddVideoActivity extends AppCompatActivity {
         addVideoButton.setOnClickListener(v -> addVideo());
 
         videos = getIntent().getParcelableArrayListExtra("videos");
+        users = getIntent().getParcelableArrayListExtra("users");
         user = getIntent().getParcelableExtra("user");
         if (videos == null) {
             videos = new ArrayList<>();
@@ -94,13 +96,15 @@ public class AddVideoActivity extends AppCompatActivity {
     private void navigateToProfilePage() {
         Intent intent = new Intent(AddVideoActivity.this, ProfilePage.class);
         intent.putExtra("user", user);
-        intent.putExtra("videos", videos);
+        intent.putParcelableArrayListExtra("videos", videos);
+        intent.putParcelableArrayListExtra("users", users);
         startActivity(intent);
     }
 
     private void navigateToMainActivity() {
         Intent intent = new Intent(AddVideoActivity.this, MainActivity.class);
-        intent.putExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         intent.putExtra("user", user);
         startActivity(intent);
     }
@@ -175,6 +179,7 @@ public class AddVideoActivity extends AppCompatActivity {
     private void handleBackAction() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         intent.putExtra("user", user);
         startActivity(intent);
     }

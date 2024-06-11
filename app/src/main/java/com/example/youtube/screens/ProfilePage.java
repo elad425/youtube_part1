@@ -30,6 +30,7 @@ public class ProfilePage extends AppCompatActivity {
 
     private user user;
     private ArrayList<video> videos;
+    private ArrayList<user> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class ProfilePage extends AppCompatActivity {
         Intent intent = getIntent();
         user = intent.getParcelableExtra("user");
         videos = intent.getParcelableArrayListExtra("videos");
+        users = intent.getParcelableArrayListExtra("users");
         if (videos == null) {
             videos = new ArrayList<>();
         }
@@ -139,6 +141,7 @@ public class ProfilePage extends AppCompatActivity {
     private void navigateToHome() {
         Intent intent = new Intent(ProfilePage.this, MainActivity.class);
         intent.putExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         intent.putExtra("user", user);
         startActivity(intent);
     }
@@ -147,6 +150,7 @@ public class ProfilePage extends AppCompatActivity {
         if (user != null) {
             Intent intent = new Intent(ProfilePage.this, AddVideoActivity.class);
             intent.putExtra("videos", videos);
+            intent.putParcelableArrayListExtra("users", users);
             intent.putExtra("user", user);
             startActivity(intent);
         } else {
@@ -173,6 +177,7 @@ public class ProfilePage extends AppCompatActivity {
     private void handleBackAction() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         intent.putExtra("user", user);
         startActivity(intent);
     }
@@ -180,6 +185,7 @@ public class ProfilePage extends AppCompatActivity {
     private void goToLogIn(){
         Intent intent = new Intent(this, LogIn.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         startActivity(intent);
     }
 }

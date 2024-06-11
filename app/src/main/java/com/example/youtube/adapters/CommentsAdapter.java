@@ -25,23 +25,24 @@ import com.google.android.material.imageview.ShapeableImageView;
 import java.util.ArrayList;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
-
     private final ArrayList<comment> commentList;
     private final VideoPlayerActivity videoPlayerActivity;
     private final user user;
     private final Context context;
     private final LayoutInflater mInflater;
     private final ArrayList<video> videos;
+    private final ArrayList<user> users;
 
 
     public CommentsAdapter(ArrayList<comment> commentList, VideoPlayerActivity videoPlayerActivity,
-                           user user, Context context,ArrayList<video> videos) {
+                           user user, Context context,ArrayList<video> videos, ArrayList<user> users) {
         mInflater = LayoutInflater.from(context);
         this.commentList = commentList;
         this.context = context;
         this.videoPlayerActivity = videoPlayerActivity;
         this.user = user;
         this.videos = videos;
+        this.users = users;
     }
 
     @NonNull
@@ -76,6 +77,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                             Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(context, LogIn.class);
                     intent.putParcelableArrayListExtra("video_list", videos);
+                    intent.putParcelableArrayListExtra("users", users);
                     context.startActivity(intent);
                 }else {
                     if (item.getItemId() == R.id.action_edit_comment) {

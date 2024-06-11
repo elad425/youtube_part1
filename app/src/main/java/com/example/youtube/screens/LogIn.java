@@ -31,6 +31,7 @@ public class LogIn extends AppCompatActivity {
     private Button signUpButton;
     private ImageView loginLogo;
     private ArrayList<video> videos;
+    private ArrayList<user> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class LogIn extends AppCompatActivity {
         signUpButton = findViewById(R.id.login_to_signup_button);
         Intent intent = new Intent();
         videos = intent.getParcelableArrayListExtra("video_list");
+        users = intent.getParcelableArrayListExtra("users");
         emailEditText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -83,6 +85,7 @@ public class LogIn extends AppCompatActivity {
     private void signUp(){
         Intent intent = new Intent(LogIn.this, SignUpActivity.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         resetFields();
         startActivity(intent);
     }
@@ -112,6 +115,7 @@ public class LogIn extends AppCompatActivity {
             user new_user = new user(savedUsername,savedEmail,savedPassword,savedImage);
             intent.putExtra("user",new_user);
             intent.putParcelableArrayListExtra("video_list", videos);
+            intent.putParcelableArrayListExtra("users", users);
             resetFields();
             startActivity(intent);
             finish();

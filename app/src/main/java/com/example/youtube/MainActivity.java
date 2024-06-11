@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<video> videos;
     private user user;
+    private ArrayList<user> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     private void setupWindow() {
         Window window = getWindow();
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
@@ -63,13 +63,16 @@ public class MainActivity extends AppCompatActivity {
         if (videos == null) {
             videos = JsonUtils.loadVideosFromJson(this);
         }
-
+        users = intent.getParcelableArrayListExtra("users");
         user = intent.getParcelableExtra("user");
+        if(user == null){
+            user = new user("elad","elad425","aa","thumbnail1");
+        }
     }
 
     private void setupUI() {
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
-        videoListUtils.displayVideoList(this, lstVideos, videos, user, null);
+        videoListUtils.displayVideoList(this, lstVideos, videos, user, null, users);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
         btnSearch.setOnClickListener(v -> navigateToSearch());
@@ -82,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private void navigateToSearch() {
         Intent intent = new Intent(this, SearchVideo.class);
         intent.putParcelableArrayListExtra("video_list", videos);
+        intent.putParcelableArrayListExtra("users", users);
         intent.putExtra("user", user);
         startActivity(intent);
     }
@@ -106,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, ProfilePage.class);
         intent.putExtra("user", user);
         intent.putExtra("videos", videos);
+        intent.putExtra("users",users);
         startActivity(intent);
     }
 
@@ -114,11 +119,13 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, AddVideoActivity.class);
             intent.putExtra("videos", videos);
             intent.putExtra("user", user);
+            intent.putExtra("users",users);
             startActivity(intent);
         } else {
             Toast.makeText(MainActivity.this, "Please log in to add a video", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, LogIn.class);
             intent.putParcelableArrayListExtra("video_list", videos);
+            intent.putParcelableArrayListExtra("users", users);
             startActivity(intent);
         }
     }
