@@ -2,6 +2,8 @@
 
 This repository contains the source code for a YouTube-like Android application. The app allows users to view a list of videos, search for videos, and add new videos. It includes functionalities like user authentication, video display, and a bottom navigation menu and much more.
 
+**Note:** This app is designed only for the English language. For the best experience, users should set their phone's language to English.
+
 ## Table of Contents
 - [Overview](#overview)
 - [Features](#features)
