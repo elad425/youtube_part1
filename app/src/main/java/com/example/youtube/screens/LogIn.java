@@ -13,22 +13,24 @@ import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Patterns;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
 import com.example.youtube.entities.user;
+import com.example.youtube.entities.video;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
 
 public class LogIn extends AppCompatActivity {
 
     private TextInputLayout emailEditText, passwordEditText;
     private Button loginButton;
-
     private Button signUpButton;
     private ImageView loginLogo;
+    private ArrayList<video> videos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,8 @@ public class LogIn extends AppCompatActivity {
         loginButton = findViewById(R.id.login_login_button);
         loginLogo = findViewById(R.id.login_logo);
         signUpButton = findViewById(R.id.login_to_signup_button);
+        Intent intent = new Intent();
+        videos = intent.getParcelableArrayListExtra("video_list");
         emailEditText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,6 +82,7 @@ public class LogIn extends AppCompatActivity {
 
     private void signUp(){
         Intent intent = new Intent(LogIn.this, SignUpActivity.class);
+        intent.putParcelableArrayListExtra("video_list", videos);
         resetFields();
         startActivity(intent);
     }
@@ -100,17 +105,13 @@ public class LogIn extends AppCompatActivity {
         String savedPassword = sharedPreferences.getString("password", null);
         String savedUsername = sharedPreferences.getString("username",null);
         String savedImage = sharedPreferences.getString("image",null);
-//        String encodedImage = sharedPreferences.getString("image", null);
-//        if (encodedImage != null) {
-//            Bitmap decodedImage = decodeBase64ToBitmap(encodedImage);
-//            loginLogo.setImageBitmap(decodedImage);
-//        }
 
         if (email.equals(savedEmail) && password.equals(savedPassword)) {
             Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LogIn.this, MainActivity.class);
             user new_user = new user(savedUsername,savedEmail,savedPassword,savedImage);
             intent.putExtra("user",new_user);
+            intent.putParcelableArrayListExtra("video_list", videos);
             resetFields();
             startActivity(intent);
             finish();

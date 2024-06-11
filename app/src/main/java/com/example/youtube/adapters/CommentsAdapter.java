@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.youtube.R;
 import com.example.youtube.entities.comment;
 import com.example.youtube.entities.user;
+import com.example.youtube.entities.video;
 import com.example.youtube.screens.LogIn;
 import com.example.youtube.screens.VideoPlayerActivity;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -30,14 +31,17 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     private final user user;
     private final Context context;
     private final LayoutInflater mInflater;
+    private final ArrayList<video> videos;
 
 
-    public CommentsAdapter(ArrayList<comment> commentList, VideoPlayerActivity videoPlayerActivity, user user, Context context) {
+    public CommentsAdapter(ArrayList<comment> commentList, VideoPlayerActivity videoPlayerActivity,
+                           user user, Context context,ArrayList<video> videos) {
         mInflater = LayoutInflater.from(context);
         this.commentList = commentList;
         this.context = context;
         this.videoPlayerActivity = videoPlayerActivity;
         this.user = user;
+        this.videos = videos;
     }
 
     @NonNull
@@ -68,10 +72,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
             popup.setOnMenuItemClickListener(item -> {
                 if (user == null){
-                    Intent Login = new Intent(context, LogIn.class);
                     Toast.makeText(context, "please login in order to edit or delete comments",
                             Toast.LENGTH_SHORT).show();
-                    context.startActivity(Login);
+                    Intent intent = new Intent(context, LogIn.class);
+                    intent.putParcelableArrayListExtra("video_list", videos);
+                    context.startActivity(intent);
                 }else {
                     if (item.getItemId() == R.id.action_edit_comment) {
                         videoPlayerActivity.editComment(position);
