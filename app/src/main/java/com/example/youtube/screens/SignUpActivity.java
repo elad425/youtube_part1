@@ -1,15 +1,10 @@
 package com.example.youtube.screens;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Window;
@@ -27,17 +22,13 @@ import com.example.youtube.entities.video;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class SignUpActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private TextInputLayout usernameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
-    private Button uploadButton, signUpButton,loginButton;
     private Uri imageUri;
-    private Bitmap selectedImageBitmap;
     private ArrayList<video> videos;
     private ArrayList<user> users;
 
@@ -54,10 +45,9 @@ public class SignUpActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.sign_up_email);
         passwordEditText = findViewById(R.id.sign_up_password);
         confirmPasswordEditText = findViewById(R.id.sign_up_confirm_password);
-        uploadButton = findViewById(R.id.sign_up_upload_button);
-        signUpButton = findViewById(R.id.sign_up_button);
-        loginButton = findViewById(R.id.sign_up_login_button);
-        //profileImageView = findViewById(R.id.profile_image);
+        Button uploadButton = findViewById(R.id.sign_up_upload_button);
+        Button signUpButton = findViewById(R.id.sign_up_button);
+        Button loginButton = findViewById(R.id.sign_up_login_button);
 
         Intent intent = getIntent();
         videos = intent.getParcelableArrayListExtra("video_list");
@@ -92,7 +82,6 @@ public class SignUpActivity extends AppCompatActivity {
         passwordEditText.getEditText().setText("");
         confirmPasswordEditText.getEditText().setText("");
         imageUri = null;
-        selectedImageBitmap = null;
     }
 
     @Override
@@ -100,11 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            try {
-                selectedImageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Toast.makeText(this, "profile picture added", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -158,25 +143,9 @@ public class SignUpActivity extends AppCompatActivity {
             Log.d("my shit",users.get(0).getEmail());
         }
         users.add(new_user);
-        // Proceed with sign-up logic (e.g., send data to server)
-//        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString("username", username);
-//        editor.putString("email", email);
-//        editor.putString("password", password);
-//        editor.putString("image", imageUri.toString());
-//        editor.apply();
 
         Toast.makeText(this, "Sign-up successful", Toast.LENGTH_SHORT).show();
         login();
-    }
-
-
-    private String encodeImageToBase64(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     private void clearErrorOnTyping(TextInputLayout textInputLayout) {
@@ -194,15 +163,5 @@ public class SignUpActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-    }
-    @Override
-    protected void onDestroy() {
-        //todo might cause errors check in case user details gets deleted
-        super.onDestroy();
-        // Clear SharedPreferences when the app is destroyed
-        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
     }
 }

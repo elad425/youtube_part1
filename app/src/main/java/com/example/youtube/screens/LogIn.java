@@ -3,22 +3,14 @@ package com.example.youtube.screens;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.youtube.MainActivity;
 import com.example.youtube.R;
 import com.example.youtube.entities.user;
@@ -30,9 +22,6 @@ import java.util.ArrayList;
 public class LogIn extends AppCompatActivity {
 
     private TextInputLayout emailEditText, passwordEditText;
-    private Button loginButton;
-    private Button signUpButton;
-    private ImageView loginLogo;
     private ArrayList<video> videos;
     private ArrayList<user> users;
 
@@ -44,9 +33,8 @@ public class LogIn extends AppCompatActivity {
         window.setStatusBarColor(ContextCompat.getColor(this, R.color.transparent));
         emailEditText = findViewById(R.id.login_email);
         passwordEditText = findViewById(R.id.login_password);
-        loginButton = findViewById(R.id.login_login_button);
-        loginLogo = findViewById(R.id.login_logo);
-        signUpButton = findViewById(R.id.login_to_signup_button);
+        Button loginButton = findViewById(R.id.login_login_button);
+        Button signUpButton = findViewById(R.id.login_to_signup_button);
 
         Intent intent = getIntent();
         videos = intent.getParcelableArrayListExtra("video_list");
@@ -128,24 +116,8 @@ public class LogIn extends AppCompatActivity {
                 return;
             }
         }
-
         // If no match is found, show an error message
         Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-    }
-
-    private Bitmap decodeBase64ToBitmap(String encodedImage) {
-        byte[] decodedByte = Base64.decode(encodedImage, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Clear SharedPreferences when the app is destroyed
-        SharedPreferences sharedPreferences = getSharedPreferences("UserDetails", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.apply();
     }
 
     private void resetFields() {

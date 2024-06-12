@@ -47,4 +47,14 @@ public class videoListUtils {
         return videos;
     }
 
+    public static void updateUsers(ArrayList<user> users, user user){
+        int position = 0;
+        while(position!= users.size()){
+            if (users.get(position).getEmail().equals(user.getEmail())){
+                users.set(position,user);
+            }
+            position += 1;
+        }
+    }
+
 }

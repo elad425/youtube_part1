@@ -21,6 +21,7 @@ import com.example.youtube.MainActivity;
 import com.example.youtube.R;
 import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
+import com.example.youtube.utils.videoListUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -160,6 +161,7 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void onConfirmClick() {
+        videoListUtils.updateUsers(users, user);
         user = null;
         Toast.makeText(this, "You logged out", Toast.LENGTH_SHORT).show();
         navigateToHome();
