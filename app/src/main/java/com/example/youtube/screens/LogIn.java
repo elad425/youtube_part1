@@ -51,13 +51,7 @@ public class LogIn extends AppCompatActivity {
         Intent intent = getIntent();
         videos = intent.getParcelableArrayListExtra("video_list");
         users = intent.getParcelableArrayListExtra("users");
-        if (users!=null){
-            user user =users.get(0);
-            Log.d("my shit",user.getEmail());
-        }
-        if (users==null){
-            Log.d("my shit","woww");
-        }
+
         emailEditText.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -108,20 +102,18 @@ public class LogIn extends AppCompatActivity {
 
         if (password.isEmpty()) {
             passwordEditText.setError("Please enter a password");
-            return;
         }
         if (email.isEmpty()) {
             emailEditText.setError("Please enter an email");
+        }
+        if (password.isEmpty()||email.isEmpty()){
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEditText.setError("Please enter a valid email address");
             return;
         }
-        if (users==null){
-            Log.d("my shit","in func");
-            return;
-        }
+
         // Check if the email and password match any user in the users list
         for (user u : users) {
             if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
