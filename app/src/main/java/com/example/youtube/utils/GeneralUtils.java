@@ -10,7 +10,7 @@ import com.example.youtube.entities.video;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class videoListUtils {
+public class GeneralUtils {
 
     public static void displayVideoList(Context context, RecyclerView lstVideos,
                                         ArrayList<video> videos, user user, video filter, ArrayList<user> users) {
@@ -32,21 +32,6 @@ public class videoListUtils {
         return counter;
     }
 
-    public static ArrayList<video> filterVideoList(ArrayList<video> videos, ArrayList<video> filter){
-        ArrayList<video> temp = new ArrayList<video>();
-        if (filter != null) {
-            for (video f : filter) {
-                for (video v: videos){
-                    if (!v.getVideo_name().equals(f.getVideo_name())){
-                        temp.add(v);
-                    }
-                }
-            }
-            return temp;
-        }
-        return videos;
-    }
-
     public static void updateUsers(ArrayList<user> users, user user){
         int position = 0;
         while(position!= users.size()){
@@ -55,6 +40,20 @@ public class videoListUtils {
             }
             position += 1;
         }
+    }
+
+    public static boolean isUserExist(ArrayList<user> users, String email){
+        if (users == null){
+            return false;
+        }
+        int position = 0;
+        while(position!= users.size()){
+            if (users.get(position).getEmail().equals(email)){
+                return true;
+            }
+            position += 1;
+        }
+        return false;
     }
 
 }

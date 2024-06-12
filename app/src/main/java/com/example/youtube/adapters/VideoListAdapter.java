@@ -125,23 +125,23 @@ public class VideoListAdapter extends RecyclerView.Adapter<VideoListAdapter.Vide
             popup.getMenuInflater().inflate(R.menu.video_options_menu, popup.getMenu());
 
             popup.setOnMenuItemClickListener(item -> {
-                if (user == null) {
-                    Toast.makeText(context, "please login in order to download or delete a video", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, LogIn.class);
-                    intent.putParcelableArrayListExtra("video_list", videos);
-                    intent.putParcelableArrayListExtra("users", users);
-                    context.startActivity(intent);
-                } else {
-                    if (item.getItemId() == R.id.action_delete_video) {
+                if (item.getItemId() == R.id.action_delete_video) {
+                    if (user == null) {
+                        Toast.makeText(context, "please login in order to download or delete a video", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, LogIn.class);
+                        intent.putParcelableArrayListExtra("video_list", videos);
+                        intent.putParcelableArrayListExtra("users", users);
+                        context.startActivity(intent);
+                    } else {
                         videos.remove(position);
                         filteredVideos.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, filteredVideos.size());
-                        return true;
-                    } else if (item.getItemId() == R.id.action_download) {
-                        Toast.makeText(context, "sign up to youtube premium for downloading videos", Toast.LENGTH_SHORT).show();
-                        return true;
                     }
+                    return true;
+                } else if (item.getItemId() == R.id.action_download) {
+                    Toast.makeText(context, "sign up to youtube premium for downloading videos", Toast.LENGTH_SHORT).show();
+                    return true;
                 }
                 return false;
             });

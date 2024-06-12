@@ -1,6 +1,6 @@
 package com.example.youtube.screens;
 
-import static com.example.youtube.utils.videoListUtils.findVideoPlace;
+import static com.example.youtube.utils.GeneralUtils.findVideoPlace;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -30,7 +30,7 @@ import com.example.youtube.adapters.CommentsAdapter;
 import com.example.youtube.entities.comment;
 import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
-import com.example.youtube.utils.videoListUtils;
+import com.example.youtube.utils.GeneralUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.imageview.ShapeableImageView;
 
@@ -91,7 +91,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         if (videoItem != null && videos != null) {
             videoPosition = findVideoPlace(videos, videoItem);
-            videoListUtils.displayVideoList(this, lstVideos, videos, user, videoItem, users);
+            GeneralUtils.displayVideoList(this, lstVideos, videos, user, videoItem, users);
         }
     }
 

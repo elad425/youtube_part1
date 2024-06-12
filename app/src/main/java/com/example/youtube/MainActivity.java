@@ -24,14 +24,12 @@ import com.example.youtube.screens.LogIn;
 import com.example.youtube.screens.ProfilePage;
 import com.example.youtube.screens.SearchVideo;
 import com.example.youtube.utils.JsonUtils;
-import com.example.youtube.utils.videoListUtils;
+import com.example.youtube.utils.GeneralUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int PERMISSION_REQUEST_CODE = 100;
-
     private ArrayList<video> videos;
     private user user;
     private ArrayList<user> users;
@@ -42,11 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setupWindow();
 
         if (checkPermissions()) {
-            setContentView(R.layout.activity_main);
-            initializeData();
-            setupUI();
-            setupBottomNavigation();
-            handleBackButton();
+            lunchApp();
         } else {
             requestPermissions();
         }
@@ -69,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupUI() {
         RecyclerView lstVideos = findViewById(R.id.lstVideos);
-        videoListUtils.displayVideoList(this, lstVideos, videos, user, null, users);
+        GeneralUtils.displayVideoList(this, lstVideos, videos, user, null, users);
 
         ImageButton btnSearch = findViewById(R.id.search_button);
         btnSearch.setOnClickListener(v -> navigateToSearch());
@@ -153,28 +147,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0 && Build.VERSION.SDK_INT >= 33) {
-                boolean videoPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                boolean imagesPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-                if (videoPermission && imagesPermission) {
-                    initializeData();
-                    setupUI();
-                    setupBottomNavigation();
-                } else {
-                    Toast.makeText(MainActivity.this, "this app need permissions, please go to setting and grant them", Toast.LENGTH_SHORT).show();
-                }
+        if (grantResults.length > 0 && Build.VERSION.SDK_INT >= 33) {
+            boolean videoPermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+            boolean imagesPermission = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+            if (videoPermission && imagesPermission) {
+                lunchApp();
+            } else {
+                Toast.makeText(MainActivity.this, "this app need permissions, please go to setting and grant them", Toast.LENGTH_SHORT).show();
             }
         } else if (grantResults.length > 0) {
             boolean storagePermission = grantResults[0] == PackageManager.PERMISSION_GRANTED;
             if (storagePermission) {
-                initializeData();
-                setupUI();
-                setupBottomNavigation();
+                lunchApp();
             } else {
                 Toast.makeText(MainActivity.this, "this app need permissions, please go to setting and grant them", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+
+    public void lunchApp(){
+        setContentView(R.layout.activity_main);
+        initializeData();
+        setupUI();
+        setupBottomNavigation();
+        handleBackButton();
     }
 
     @Override

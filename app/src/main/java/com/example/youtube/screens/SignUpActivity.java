@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.Window;
 import android.widget.Button;
@@ -19,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import com.example.youtube.R;
 import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
+import com.example.youtube.utils.GeneralUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -99,7 +99,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = passwordEditText.getEditText().getText().toString().trim();
         String confirmPassword = confirmPasswordEditText.getEditText().getText().toString().trim();
         if (username.isEmpty()){
-            usernameEditText.setError("You need to enter a name");
+            usernameEditText.setError("You need to enter a username");
         }
         if (email.isEmpty()){
             emailEditText.setError("Please enter an email");
@@ -110,6 +110,16 @@ public class SignUpActivity extends AppCompatActivity {
         }
         if(confirmPassword.isEmpty()){
             confirmPasswordEditText.setError("You need to enter a password confirmation");
+        }
+
+        if(username.length()>=20){
+            Toast.makeText(this, "username too long, must be under 20 letters", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(GeneralUtils.isUserExist(users,email)){
+            Toast.makeText(this, "this email is already exists", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         if (username.isEmpty()||email.isEmpty()||password.isEmpty()||confirmPassword.isEmpty()){
@@ -138,9 +148,6 @@ public class SignUpActivity extends AppCompatActivity {
         user new_user = new user(username,email,password,imageUri.toString());
         if (users==null){
             users=new ArrayList<>();
-        }
-        else {
-            Log.d("my shit",users.get(0).getEmail());
         }
         users.add(new_user);
 
