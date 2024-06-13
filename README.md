@@ -21,7 +21,9 @@ The app requires the following permissions:
 1. READ_MEDIA_VIDEO
 2. READ_MEDIA_IMAGES
 3. READ_EXTERNAL_STORAGE
+4. CAMERA
 
-These permissions are requested at runtime. If the permissions are not granted, the app will close. Each time the app is activated, it checks for these permissions and requests them if they are not already granted.
+These permissions are requested at runtime. If the permissions are not granted, the app will not function. Each time the app is activated, it will check for these permissions.
+for the app to run these permissions must to be granted.
 
 **this app is not complete stay tuned for the next update:)**
