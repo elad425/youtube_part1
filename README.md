@@ -13,9 +13,8 @@ we first divided the required pages between us, one did the sign up/login pages,
 each one designed his pages to look as close as possible to the real youtube
 we then added logic to check the users sign up information, and login info, added the ability to add videos,comments and edit/delete those, navigate between pages, like and dislike videos, and subscribe to favorite channels, and finally we gave the users the option to search for videos and switch between horizontal and vertical oriantation. 
 
-**Note:**
-1. This app is designed only for the English language. For the best experience, users should set their phone's language to English.
-2. this app doesnt support accsess to images and videos from google photos, so only use the default gallery app.
+** important Note:**
+this app doesnt support accsess to images and videos from google photos, so only use the default gallery app.
 
 ## Permissions
 The app requires the following permissions:
