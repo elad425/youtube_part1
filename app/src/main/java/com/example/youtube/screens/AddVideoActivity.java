@@ -3,9 +3,11 @@ package com.example.youtube.screens;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,15 +26,13 @@ import com.example.youtube.entities.video;
 import com.example.youtube.utils.GeneralUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class AddVideoActivity extends AppCompatActivity {
 
     private static final int PICK_VIDEO_REQUEST = 1;
     private static final int PICK_THUMBNAIL_REQUEST = 2;
+    private static final int REQUEST_VIDEO_CAPTURE = 3;
 
     private EditText videoNameEditText;
     private ImageView thumbnailImageView;
@@ -72,6 +72,9 @@ public class AddVideoActivity extends AppCompatActivity {
 
         Button addVideoButton = findViewById(R.id.btn_add_video);
         addVideoButton.setOnClickListener(v -> addVideo());
+
+        ImageButton recordVideoButton = findViewById(R.id.record_video_button);
+        recordVideoButton.setOnClickListener(v -> openCamera());
 
         videos = getIntent().getParcelableArrayListExtra("videos");
         users = getIntent().getParcelableArrayListExtra("users");
@@ -125,6 +128,13 @@ public class AddVideoActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_THUMBNAIL_REQUEST);
     }
 
+    private void openCamera() {
+        Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,6 +146,9 @@ public class AddVideoActivity extends AppCompatActivity {
             } else if (requestCode == PICK_THUMBNAIL_REQUEST) {
                 thumbnailUri = selectedUri;
                 displayThumbnailSample();
+            } else if (requestCode == REQUEST_VIDEO_CAPTURE) {
+                videoUri = selectedUri;
+                playVideoSample();
             }
         }
     }
