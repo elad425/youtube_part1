@@ -21,9 +21,13 @@ import com.example.youtube.R;
 import com.example.youtube.entities.creator;
 import com.example.youtube.entities.user;
 import com.example.youtube.entities.video;
+import com.example.youtube.utils.GeneralUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddVideoActivity extends AppCompatActivity {
 
@@ -158,7 +162,7 @@ public class AddVideoActivity extends AppCompatActivity {
         }
 
         creator newCreator = new creator(user.getName(), "0", user.getProfile_pic());
-        video newVideo = new video(videoName, newCreator, "today", videoUri.toString(), thumbnailUri.toString(), "0:12", "0", "0");
+        video newVideo = new video(videoName, newCreator, GeneralUtils.getTheDate(), videoUri.toString(), thumbnailUri.toString(), "0:12", "0", "0");
 
         videos.add(newVideo);
         Toast.makeText(this, "Video added successfully", Toast.LENGTH_SHORT).show();
